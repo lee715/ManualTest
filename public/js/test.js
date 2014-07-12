@@ -98,6 +98,7 @@ var showReport = function(){
 }
 function Test(data){
 	this.cases = data.cases;
+	this.plan = data.plan;
 	this.tester = data.tester;
 	this.device = data.device;
 	this.system = data.system;
@@ -138,7 +139,7 @@ Test.prototype.getTrs = function(noOp){
 }
 Test.prototype.toJSON = function(){
 	var obj = {}, self =this;
-	$.each('tester device system results notes'.split(' '), function(ind, key){
+	$.each('plan tester device system results notes'.split(' '), function(ind, key){
 		if(key == 'results'){
 			obj[key] = self.res;
 		}else{

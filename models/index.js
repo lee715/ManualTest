@@ -9,7 +9,9 @@ mongoose.connect(config.db_url, function(err){
 });
 
 require('./testResult');
+require('./plan');
 
 module.exports = {
-	TestResult: mongoose.model('TestResult')
+	TestResult: mongoose.model('TestResult'),
+	Plan: mongoose.model('Plan')
 }

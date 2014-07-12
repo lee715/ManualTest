@@ -7,7 +7,8 @@ var TestResultSchema = new Schema({
 	system: String,
 	time: {type: Date, default: Date.now},
 	notes: [],
-	results: []
+	results: [],
+	plan: String
 });
 
 mongoose.model('TestResult', TestResultSchema);

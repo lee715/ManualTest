@@ -10,7 +10,16 @@ app.use(express.static(__dirname + '/public'));
 var Models = require('./models/index.js');
 
 app.get('/test', function(req, res){
-	res.render('test.jade');
+	Models.Plan.find({}, function(err, plans){
+		if(err) return res.send(err.message);
+		plans.sort(function(a, b){
+			if(a.time.getTime() < b.time.getTime())
+				return true;
+			else
+				return false;
+		});
+		res.render('test.jade', {plans: plans});
+	});
 });
 
 app.get('/getFiles', function(req, res){
@@ -25,7 +34,7 @@ app.get('/getFiles', function(req, res){
 })
 
 app.get('/save', function(req, res){
-	var datas = 'tester device system results notes'.split(' '),
+	var datas = 'plan tester device system results notes'.split(' '),
 		one = new Models.TestResult(), cur;
 	while(cur = datas.shift()){
 		if(!req.param(cur)){
@@ -44,9 +53,19 @@ app.get('/save', function(req, res){
 
 app.get('/list', function(req, res){
 	Models.TestResult.find({}, function(err, data){
+		data.reverse();
 		if(err) return res.send('error: failed to read TestResult');
-		res.render('list.jade', {list: data});
-	})
+		Models.Plan.find({}, function(err, plans){
+			if(err) return res.send('error: failed to read plans');
+			var p, pObj = {};
+			for(var i=0,l=plans.length;i<l;i++){
+				p = plans[i];
+				pObj[p.id] = p.content;
+			};
+			pObj[0] = 'no plan';
+			res.render('list.jade', {list: data, plans: pObj});
+		});
+	});
 });
 
 app.get('/report', function(req, res){
@@ -69,7 +88,38 @@ app.get('/report', function(req, res){
 			}
 		});
 	})
-})
+});
+
+app.get('/plan', function(req, res){
+	res.render('plan.jade');
+});
+
+app.get('/plan/save', function(req, res){
+	var plan = req.param('content');
+	if(plan){
+		var n = new Models.Plan();
+		n.content = plan;
+		n.save(function(err, saved){
+			if(err) return res.send(err.message);
+			res.redirect('/plans');
+		});
+	}else{
+		res.send('error');
+	}
+});
+
+app.get('/plans', function(req, res){
+	Models.Plan.find({}, function(err, plans){
+		if(err) return res.send(err.message);
+		plans.sort(function(a, b){
+			if(a.time.getTime() < b.time.getTime())
+				return true;
+			else
+				return false;
+		});
+		res.render('plans.jade', {plans: plans});
+	});
+});
 
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port);

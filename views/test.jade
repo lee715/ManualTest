@@ -11,6 +11,13 @@ html
 			form#form
 				table
 					tr
+						td  Plan:
+						td 
+							select(name="plan")
+								option(value="") 请选择测试计划
+								each plan in plans
+									option(value=plan.id)= plan.content
+					tr
 						td Tester:
 						td
 							input(name="tester" type="text" placeholder="您的姓名")

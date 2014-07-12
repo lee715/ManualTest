@@ -7,9 +7,10 @@ html
 	body
 		table(cellpadding="0" cellspacing="0")
 			tr(class="title")
-				td(align="center",colspan=5) TEST RESULTS
+				td(align="center",colspan=6) TEST RESULTS
 			tr(class="header")
 				td#all All
+				td Plan
 				td Tester
 				td Device
 				td System
@@ -18,12 +19,13 @@ html
 				tr(class="item")
 					td
 						div(class="checkbox" data-id= list[i].id)
+					td= plans[list[i].plan||0]
 					td= list[i].tester
 					td= list[i].device
 					td= list[i].system
 					td= list[i].time.toLocaleDateString()
 			tr(class="footer")
-				td(align="right",colspan=5)
+				td(align="right",colspan=6)
 					a(href="javascript:;", id="reportBtn") Merge And Report
 		script(src="js/zepto.min.js")
 		script(src="js/list.js")

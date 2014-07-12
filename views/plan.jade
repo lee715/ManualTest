@@ -1,0 +1,61 @@
+doctype HTML
+html
+	head
+		meta(charset="utf-8")
+		title 测试结果集
+		style.
+			body{
+				font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+			}
+			#planInp{
+				padding: 10px;
+				margin: 0;
+				line-height: 58px;
+				font-size: 36px;
+				color: #666;
+				border: 1px solid #ccc;
+				float: left;
+				display: block;
+				margin: 30px 0 0 30px;
+				width: 500px;
+			}
+			#addPlan{
+				width: 160px;
+				height: 80px;
+				display: block;
+				float: left;
+				text-align: center;
+				line-height: 46px;
+				font-size: 36px;
+				color: white;
+				cursor: pointer;
+				background: #f38283;
+				margin: 30px 0 0 0;
+				border: none;
+			}
+			#addPlan:hover{
+				background: #fc6d6f;
+			}
+	body
+		form(action="/plan/save" method="GET")
+			input#planInp(type="text" name="content")
+			button#addPlan(type="submit") Add Plan
+		script(src="js/zepto.min.js")
+		script.
+			//- $('#addPlan').click(function(){
+			//- 	var val = $('#planInp').val();
+			//- 	if(!val || saving) return;
+			//- 	saving = true;
+			//- 	$.ajax({
+			//- 		url: '/plan/save',
+			//- 		data: {content: val},
+			//- 		success: function(res){
+			//- 			saving = false;
+			//- 			alert(res);
+			//- 		},
+			//- 		error: function(err){
+			//- 			saving = false;
+			//- 			alert(err);
+			//- 		}
+			//- 	});
+			//- })
