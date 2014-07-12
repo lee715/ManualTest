@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Background color change on body with margin</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		body {
+			margin: 50px 50px 50px 50px;
+			background-color: red;
+		}
+		ol li{
+			margin:5px;
+		}
+		</style>
+		<script>
+		  function start() {
+		    window.setTimeout("document.getElementsByTagName('body')[0].style.backgroundColor='white';", 500); 
+		  }
+		</script>
+
+	</head>
+
+	<body onload='start();'>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">Background color change on body with margin</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="Background color change on body with margin">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>Background color change on body with margin</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>This test verifies that we don't do partial repaint when background-color changes.</p>
+					<p><b>STEPS TO TEST:</b>
+						Scroll to check if the background is white all the way down.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The background is white all the way
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						The background is red sometimes.
+					</p>
+				</div>
+				<div id='content'>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				  </div>
+			</div><!-- .case end -->
+
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>

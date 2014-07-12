@@ -1,0 +1,110 @@
+body{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+	color: #666;
+}
+a.button{
+	width: 120px;
+	height: 46px;
+	display: block;
+	float: left; 
+	text-align: center;
+	padding: 17px;
+	line-height: 46px;
+	font-size: 40px;
+	color: white;
+	cursor: pointer;
+}
+.refresh{
+	background: url('images/refresh.png') no-repeat;
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#testProcess{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+header{
+	text-align: center;
+}
+#form{
+	width: 260px;
+	margin: auto;
+}
+#form input,select{
+	padding: 8px;
+	border: 1px solid #ccc;
+	color: #666;
+}
+#form button{
+	padding: 5px 10px;
+	color: #666;
+	font-size: 22px;
+	margin-left: 90px;		
+}
+.fail{
+	/*background-color: red;*/
+	color: red;
+}
+.pass {
+	/*background-color: green;*/
+	color: green;
+}
+.header {
+	background-color: #a7b3c2;
+	color: white;
+}
+.retest{
+	color: #666;
+	cursor: pointer;
+}
+td{
+	padding: 8px;
+}
+#testReport {
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+}
+#testReport table{
+	border: 1px solid #eee;
+}
+#testReport tr:nth-child(2n){
+	background-color: #f2f2f2;
+}
+#testReport a{
+	color: #666;
+	font-size: 26px;	
+	margin-right: 10px;
+}
+.controls{
+	text-align: center;	
+	padding: 12px 0 30px 0;	
+}
+#noteArea{
+	padding: 10px;
+	margin: 0;
+	line-height: 58px;
+	font-size: 36px;
+	color: #666;
+	border: 1px solid #ccc;
+	float: left;
+	display: block;
+}
+.note-input{
+	border: none;
+	background: transparent;
+	margin: 0;
+	padding: 4px;
+	color: #666;
+	width: 100%;
+}

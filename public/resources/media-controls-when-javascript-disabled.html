@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <style> #error { display: none; } </style>
+        <script>
+            function showErrorMsg() 
+            {
+                document.getElementById('error').style.display = 'block';
+            }
+        </script>
+    </head>
+    
+<body onload="showErrorMsg()">
+
+    <p>TEST: Video should have controls when scripting is disabled.</p>
+
+    <video 
+        src="../resources/big.mp4">
+    </video>
+
+    <noscript><p>Scripting is DISABLED.</p></noscript>
+
+    <p id=error>ERROR: JavaScript must be disabled for this test.</p>
+
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+body{
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+}
+
+table{
+	border: 1px solid #eee;
+	color: #999;
+	margin: auto;
+}
+
+tr{
+	cursor: pointer;
+}
+.item {
+	font-size: 14px;
+}
+.item:hover{
+	background: #a3e6f8;
+	color: white;
+}
+.item:hover .checkbox{
+	border: 1px solid white;
+}
+.title{
+	background-color: #c7b3ef;
+	color: white;
+	font-weight: bolder;
+}
+
+tr:nth-child(2n){
+	background-color: #f2f2f2;
+}
+
+tr.header{
+	background-color: #a7b3c2;
+	color: white;
+	text-align: center;
+}
+
+tr.footer{
+	background: white;
+}
+
+td{
+	padding: 8px;
+}
+
+.reportTable td {
+	min-width: 85px;
+}
+
+.checkbox{
+	border: 1px solid #ddd;
+	width: 20px;
+	height: 20px;
+}
+
+.checkbox.checked{
+	background-image: url('../images/yes.png');
+	background-size: 20px 20px;
+	background-position: 0 -2px;
+}
+
+#reportBtn {
+	padding: 5px 12px;
+	background: #f38283;
+	color: white;
+	text-decoration: none;
+}
+#reportBtn:hover{
+	background: #fc6d6f;
+}
+
+.green {
+	background: #b7d967;
+	color: white;
+}
+
+.blue {
+	background: #a3e6f8;
+	color: white;
+}
+
+.purple {
+	background: #c7b3ef;
+	color: white;
+}
+
+.red{
+	background: #f38283;
+	color: white;
+}
+
+.yellow {
+	background: #fed174;
+	color: white;
+}
+
+.darkblue {
+	background: #acc7bf;
+	color: white;
+}
+
+.gray {
+	background: #a7b3c2 !important;
+	color: #999;
+}
+
+#manualTestResults {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.pass {
+	/*color: green;*/
+	font-size: 12px;
+}
+
+.fail {
+	color: red;
+	font-size: 12px;
+}
+
+.note {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url('../images/note.png');
+	background-size: 20px 20px;
+	margin-left: 4px;
+	margin-bottom: -5px;
+}

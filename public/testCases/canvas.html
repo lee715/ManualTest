@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Canvas test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+
+		 #canvas1 {
+	      height: 300px;
+	      width: 400px;
+	      border: 1px solid black;
+	    }
+
+	    .masked {
+	/*      -webkit-transform: rotate(10deg);*/
+	      -webkit-mask: -webkit-canvas(canvas1);
+	    }
+		</style>
+
+		 <script type="text/javascript" charset="utf-8">
+		    var gPageWidth = 320;
+		    var gPageHeight = 200;
+		    function drawPageShadow(shadowWidth)
+		    {
+		        var ctx = document.getCSSCanvasContext('2d', 'canvas1', gPageWidth, gPageHeight);
+		        ctx.clearRect (0, 0, gPageWidth, gPageHeight);
+		        var gradient = ctx.createLinearGradient(0, 0, shadowWidth, 0);
+		        gradient.addColorStop(0, 'rgba(0,0,0,1)');
+		        gradient.addColorStop(1, 'rgba(0,0,0,0)');
+		        ctx.fillStyle = gradient;
+		        ctx.fillRect (0, 0, shadowWidth, gPageHeight);    
+		    }		    
+		    function redrawCanvas(event)
+		    {
+		      drawPageShadow(event.pageX);
+		    }		    
+		    function onPageLoad()
+		    {
+		      drawPageShadow(640);
+		    }
+		    window.addEventListener('load', onPageLoad, false);		    
+		  </script>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">canvas-mask-redraw</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="canvas-mask-redraw">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>Canvas test</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>canvas-mask-redraw<br><a href="https://bugs.webkit.org/show_bug.cgi?id=19954">https://bugs.webkit.org/show_bug.cgi?id=19954</a></p>
+					<p><b>STEPS TO TEST:</b>
+						Hovering over the image or text should cause the element to be redrawn with a new mask
+					</p>
+				</div>
+				<h4>Image with mask</h2>
+				<img src="../resources/logo.gif"  width="320" height="200" alt="Clown Fish" class="masked" onmousemove="redrawCanvas(event)">
+
+				<h4>Div with mask</h2>
+				<div class="masked" style="width: 640px" onmousemove="redrawCanvas(event)">
+				     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+			</div><!-- .case end -->
+
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>
