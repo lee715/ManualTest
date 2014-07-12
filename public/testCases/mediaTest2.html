@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Media test 2</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+		<script src="http://svn.webkit.org/repository/webkit/trunk/LayoutTests/media/media-file.js"></script>
+
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+
+		#videoelem { width: 100%; height: 100%; position: absolute; } 
+		#videocontainer { position: relative; width: 400px; height:230px;-webkit-user-select:none; -webkit-transition-duration:0.2s}
+		.videobutton { 
+		    line-height: 40pt;
+		    border: 3px solid white; 
+		    -webkit-border-radius: 20px;
+		    opacity: 0.5;
+		    position: absolute;
+		    font-size: 40pt;
+		    color: white;
+		    background-color: gray;
+		    cursor: pointer;
+		    text-align: center; 
+		    z-index: 1;
+		}
+		.videozoombutton { bottom:10px;right:10px;width:1.1em;height:1.1em;font-size:15pt; line-height: 15pt; border:2px solid white; -webkit-border-radius: 8px;}
+		.videoloading { top: 0; bottom: 0; margin:auto; left:0; right:0; width: 7em; height: 1.2em; cursor:default;}
+		.videofadeout { -webkit-transition: 1.5s; opacity:0; }
+		#videocontainer:hover .videofadeout { opacity: 0.5; }
+		.videoplay { top: 0; bottom: 0; margin:auto; left:0; right:0; width: 1.2em; height: 1.2em;}
+		</style>
+
+		<script>
+        var vid;
+
+        function canplaythrough()
+        {
+            vid.play();
+        }
+
+        function load()
+        {
+            vid = document.getElementById('vid');
+            vid.addEventListener('canplaythrough', canplaythrough);
+
+            // Mute first
+            vid.muted = true;
+
+            vid.src = "../resources/" + findMediaFile("video", "big");
+
+            console.log(vid.volume);
+            console.log(vid.muted);
+            document.getElementById("log").innerHTML = vid.muted ;
+        }
+    </script>
+
+    <script>
+var videoElem;
+var playButton;
+var showProgress = true;
+var videoLargeSize = false;
+function startedPlaying() {
+    showProgress = false;
+    playButton.innerHTML = "||"
+    playButton.className = "videobutton videoplay videofadeout";
+}
+function stoppedPlaying() {
+    playButton.innerHTML = ">"
+    playButton.className = "videobutton videoplay";
+}
+function updateProgress(ev) {
+    if (!showProgress)
+       return;
+    playButton.innerHTML = "Loading...";
+    playButton.className = "videobutton videoloading";
+}
+function initVideo() {
+    videoElem = document.getElementById("videoelem");
+    playButton = document.getElementById("videoplaybutton");
+    videoZoomButton = document.getElementById("videozoombutton");
+    if (!videoElem.play) {
+       playButton.style.display = "none";
+       videoZoomButton.style.display = "none";
+       return;
+    }
+    videoElem.addEventListener("play", startedPlaying);
+    videoElem.addEventListener("pause", stoppedPlaying);
+    videoElem.addEventListener("ended", function () {
+        if (!videoElem.paused)
+            videoElem.pause();
+        stoppedPlaying();
+    });
+    videoElem.addEventListener("progress", updateProgress);
+    videoElem.addEventListener("begin", updateProgress);
+    videoElem.addEventListener("canplaythrough", function () {
+         videoElem.play();
+    });
+    videoElem.addEventListener("error", function() {
+        playButton.innerHTML = "Load failed";
+    });
+    videoElem.addEventListener("dataunavailable", function () {
+         if (!showProgress) {
+             showProgress = true;
+             playButton.innerHTML = "Loading...";
+             playButton.className = "videobutton videoloading";
+         }
+    });
+    videoZoomButton.addEventListener("click", function () {
+        var container = document.getElementById("videocontainer");
+        videoLargeSize = !videoLargeSize;
+        if (videoLargeSize) {
+            container.style.width = "640px";
+            container.style.height = "360px";
+            videoZoomButton.innerHTML = "-";
+        } else {
+            container.style.width = "400px";
+            container.style.height = "225px";
+            videoZoomButton.innerHTML = "+";
+        }
+    });
+    playButton.addEventListener("click", function () {
+        if (videoElem.paused) {
+            if (!videoElem.src)
+                videoElem.src = "../resources/big.mp4";
+            videoElem.play();
+        } else
+            videoElem.pause();
+    } );
+}
+</script>
+
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">media-muted</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="media-muted">
+					</li>
+					<li>
+						<label for="task2">video player</label>
+						<input  class="checkbox" type="checkbox" id="task2" data-pass="video player">
+					</li>
+					<li>
+						<label for="task3">video-in-notmn-fronost-tab</label>
+						<input  class="checkbox" type="checkbox" id="task3" data-pass="video-in-notmn-fronost-tab">
+					</li>
+					<li>
+						<label for="task4">video-replaces-poster</label>
+						<input  class="checkbox" type="checkbox" id="task4" data-pass="video-replaces-poster">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>Media test 2</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>TEST: Video should be muted (e.g., controls) and also produce no sound (<a href="https://bugs.webkit.org/show_bug.cgi?id=57673">bug 57673</a>).【1】</p>
+					<p><b>STEPS TO TEST:</b>
+						Click the button to load the video,and listen the voice.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						Video should be muted
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<video id='vid' controls autoplay>
+		        </video>
+		        <input type="button" value="Load movie" onclick="load()">
+		        <br>
+		        <div id='log'>muted:</div>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>This is a video player【2】</p>
+					<p><b>STEPS TO TEST:</b>
+						Click the player button to load the video. You can also click the button on the right corner to resize the play window.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						Video plays normally.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						Nothing happened. 
+					</p>
+				</div>
+				<div id='videocontainer'>
+				<video id='videoelem' poster="../resources/touch-poster.png">
+				<b style="font-size:15pt">This is fallback content. If you had video support you would see some here!</b></video>
+				<div class="videobutton videoplay" id=videoplaybutton>&gt;</div>
+				<div id='videozoombutton' class="videobutton videozoombutton videofadeout">+</div>
+				</div>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>video-in-non-frontmost-tab【3】</p>
+					<p><b>STEPS TO TEST:</b>
+						This tests that video does not play if it's not in the frontmost tab.<br>
+						Command-Click  <a href="../resources/video-tab.html">this link</a> to open it in a non-frontmost tab.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						If you do not hear the music before switching, click on the tab and the video should then play.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If you hear music before switching tabs, then the test failed.
+					</p>
+				</div>
+				<p style="width: 300px;"></p>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>video-replaces-poster【4】</p>
+					<p><b>STEPS TO TEST:</b>
+						Test for <a href="https://bugs.webkit.org/show_bug.cgi?id=34965">https://bugs.webkit.org/show_bug.cgi?id=34965</a><br>
+						Click the button to load test page.
+     					 
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						You should see the test video start playing.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						Nothing happened.
+					</p>
+				</div>
+				<button onclick="window.open('../resources/video-replaces-poster.html')">Click here</button>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			
+			<b>Done.</b>
+
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+			initVideo();
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>

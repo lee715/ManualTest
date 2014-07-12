@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Animated gif</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			<h1>Animated gif</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Animated gif looping 【1】</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The test passes if the gif animation runs.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						Nothing happened.
+					</p>
+				</div>
+				<div>
+				    <img src="../resources/animated-infinite.gif">
+				    <p>存在动画</p>
+				</div>
+				<div>
+				    <img src="../resources/non-animated.gif">
+				    <p>无动画，你会看到一个叉叉</p>
+				</div>
+				<div>
+				    <img src="../resources/animated-2x.gif">
+				    <p>这个动画会循环两次.</p>
+				</div>
+				<div>
+				    <img src="../resources/animated-10x.gif">
+				    <p>这个动画会循环十次.</p>
+				</div>
+			</div><!-- .case end -->
+	</body>
+</html>

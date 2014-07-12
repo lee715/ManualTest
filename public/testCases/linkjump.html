@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Link jump test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		a{
+			padding: 10px;
+			background-color: #04477C;
+			border-radius: 5px;
+			text-decoration: none;
+			color: white;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">link-jump1.html</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="link-jump1.html">
+					</li>
+					<li>
+						<label for="task2">link-jump2.html</label>
+						<input  class="checkbox" type="checkbox" id="task2" data-pass="link-jump2.html">
+					</li>
+					<li>
+						<label for="task3">link-jump3.html</label>
+						<input  class="checkbox" type="checkbox" id="task3" data-pass="link-jump3.html">
+					</li>
+					<li>
+						<label for="task4">link-jump3.html</label>
+						<input  class="checkbox" type="checkbox" id="task4" data-pass="link-jump4.html">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>Link Jump Test</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Link jump test</p>
+					<p><b>STEPS TO TEST:</b>
+						Here are 4 cases for link jump test. Click the button to link to the test pages and do as that discribe.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						Link jump tests are pass.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<p style="margin-top:30px;">
+					link-jump1.html 【1】
+					<a href='javascript:0;' onclick="window.open('../resources/linkjump-1.html')">Click here</a>
+				</p>
+				<p style="margin-top:30px;">
+					link-jump2.html 【2】
+					<a href='javascript:0;' onclick="window.open('../resources/linkjump-2.html')">Click here</a>
+				</p>
+				<p style="margin-top:30px;">
+					link-jump3.html 【3】
+					<a href='javascript:0;' onclick="window.open('../resources/linkjump-3.html')">Click here</a>
+				</p>
+				<p style="margin-top:30px;">
+					link-jump4.html 【4】
+					<a href='javascript:0;' onclick="window.open('../resources/linkjump-4.html')">Click here</a>
+				</p>
+			</div><!-- .case end -->
+			<br><br><hr>
+			<b>Done.</b>
+
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>
