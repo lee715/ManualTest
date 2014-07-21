@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Animation Test</title>
+		<!-- <meta name="viewport" content="width=device-width initial-scale=1.0" /> -->
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		</style>
+
+		<!-- [2] -->
+		<style>
+         .left{
+             position: relative;
+             left: 100px;
+             height: 200px;
+             width: 200px;
+             background-color: #9bb;
+             -webkit-animation-name: bounce;
+             -webkit-animation-duration: 2s;
+             -webkit-animation-iteration-count: infinite;
+             -webkit-animation-direction: alternate;
+             -webkit-animation-timing-function: ease-in-out;
+         }
+         @-webkit-keyframes bounce {
+           from {
+             left: 100px;
+           }
+           to {
+             left: 200px;
+           }
+         }   
+         .measure {
+         	width: 400px;
+         	height: 200px;
+         }
+         .valign-line{
+         	position: absolute;
+         	left: 100px;
+         	top: 0;
+         	height: 200px;
+         }
+     </style>
+	</head>
+
+	<body>
+		<div>
+			<div id="desc" style="display:none">
+				<div id="pass-desc">
+					这个元素应该在100个像素内左右移动,即中虚线与右虚线之间左右移动。
+				</div>
+				<div id="fail-desc">
+					Nothing happened.
+				</div>
+			</div>
+			<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+					<td class="desc-body body-base">Animation of 'left' property【2】</td>
+				</tr>
+				<tr>
+					<td class="pass-header"><div class="title">Pass</div></td>
+					<td class="pass-body body-base">这个元素应该在200个像素内左右移动,即中虚线与右虚线之间左右移动。</td>
+				</tr>
+				<tr>
+					<td class="fail-header"><div class="title">Fail</div></td>
+					<td class="fail-body body-base">Nothing happened.</td>
+				</tr>
+			</table> -->
+			<div class="measure">
+				<div  class='left'>
+				    This element should animate.
+				</div>
+				<div class="valign-line red"></div>
+			</div>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Caret tests</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		iframe {
+        border: 1px solid black;
+        width: 400px;
+    }
+
+		</style>
+
+	</head>
+
+	<body>
+		<div id="desc" style="display:none">
+	      <div id="pass-desc">
+	       The caret blinks correctly.
+	      </div>
+	      <div id="fail-desc">
+	        If it doesn't pass, it fails
+	      </div>
+	      <div id="step-desc">
+	      	点击下面的可编辑div元素的第二行，一个光标会显示出来。抓住div元素的滚动条向下滚动大概一行的距离。放开滚动条后，光标闪烁。确保光标当前可见，然后抓住滚动条滚动到底，光标应该滚动并消失。
+	      </div>
+	    </div>
+		<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+				<td class="desc-body body-base">Manual test for fix for <a href="rdar://problem/3690705">rdar://problem/3690705</a> 测试在可编辑区域overflow为auto时，光标不会随着滚动条滚动而移动</td>
+			</tr>
+			<tr>
+				<td class="pass-header"><div class="title">Pass</div></td>
+				<td class="pass-body body-base">The caret blinks correctly.</td>
+			</tr>
+			<tr>
+				<td class="fail-header"><div class="title">Fail</div></td>
+				<td class="fail-body body-base">If it doesn't pass, it fails.</td>
+			</tr>
+			<tr>
+				<td class="step-header"><div class="title">Step</div></td>
+				<td class="step-body body-base">点击下面的可编辑div元素的第二行，一个光标会显示出来。抓住div元素的滚动条向下滚动大概一行的距离。放开滚动条后，光标闪烁。确保光标当前可见，然后抓住滚动条滚动到底，光标应该滚动并消失。</td>
+			</tr>
+		</table>
+		</br> -->
+			
+		<div contentEditable style="border: 1px solid blue; height: 100px; overflow:scroll;">
+			one<br>
+			two<br>
+			three<br>
+			four<br>
+			five<br>
+			six<br>
+			seven<br>
+			eight<br>
+		</div>
+	</body>
+</html>

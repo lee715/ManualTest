@@ -1,66 +1,64 @@
-doctype HTML5
+doctype HTML
 html
 	head
-		title 开始测试
 		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width initial-scale=1.0")
+		title 测试结果集
+		link(rel="stylesheet" type="text/css" href="css/themes/mytheme.min.css")
+		link(rel="stylesheet" type="text/css" href="css/themes/jquery.mobile.icons.min.css")
+		link(rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css")
 		link(rel="stylesheet" type="text/css" href="css/test.css")
+		style.
+			.clearfix:after {
+				visibility: hidden;
+				display: block;
+				font-size: 0;
+				content: " ";
+				clear: both;
+				height: 0;
+			}
+		script(src="http://code.jquery.com/jquery-1.8.3.min.js")
 	body
-		section#testPre
-			header
-				h1 Manual Test
-			form#form
-				table
-					tr
-						td  Plan:
-						td 
-							select(name="plan")
-								option(value="") 请选择测试计划
-								each plan in plans
-									option(value=plan.id)= plan.content
-					tr
-						td Tester:
-						td
-							input(name="tester" type="text" placeholder="您的姓名")
-					tr
-						td Device:
-						td
-							input(name="device" type='text' placeholder='手机型号')
-					tr
-						td System:
-						td
-							select(name="system")
-								option(value="") 请选择测试机器的操作系统
-								optgroup(label="Android 2.x")
-									option(value="Android 2.1") Android 2.1
-									option(value="Android 2.2") Android 2.2
-									option(value="Android 2.3") Android 2.3
-								optgroup(label="Android 4.x")
-									option(value="Android 4.0") Android 4.0
-									option(value="Android 4.1") Android 4.1
-									option(value="Android 4.2") Android 4.2
-									option(value="Android 4.3") Android 4.3
-									option(value="Android 4.4") Android 4.4
-					tr
-						td
-						td#warning
-				button(onclick="start();return false;") Start
-		section#testProcess
-			a(href="javascript:;" onclick="refresh();return false;" class="refresh")
-			table(width="100%" height="100%")
-				tr(height="100%")
-					td(width="100%")
-						iframe(src="" width="100%" height="100%" style="border:0")
-				tr(height="120px")
-					td(width="100%" align="center")
-						a(class="button" onclick="current.pass();return false;" style="background:green;margin:0 40px 0 40px;") PASS
-						a(class="button" onclick="current.fail();return false;" style="background:red;margin-right:40px;") FALL
-						a(class="button" onclick="current.fail();return false;" style="background:#bd7803") NOTE
-						input#noteArea(type="text")
-		section#testReport
-			div.results
-			div.controls
-				a(onclick="testAgain();return false;" href="javascript:;") TestAgain
-				a(onclick="saveAndGoOn();return false;" href="javascript:;") SaveAndGoOn
-				//- a(onclick="showReport();return false;" href="javascript:;") Show Report
-		script(src="js/zepto.min.js")
-		script(src="js/test.js")
+		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
+			div(class="header" data-role="header") 
+				a(href="javascript:;" onclick="current.back();" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all") back
+				h1(class="ui-title" role="heading" aria-level="1") ManualTest
+				a(href="javascript:;" onclick="document.getElementById('desc').style.display = 'block';return false;" class="ui-btn ui-icon-bullets ui-btn-icon-notext ui-corner-all") info
+			div(class="main" id="testMain" data-role="main")
+				iframe(width="100%" height="100%")
+			div(class="footer" data-role="footer" class="clearfix")
+				a(href="#popupNote" onclick="$('#noteTextarea')[0].value = current.getNote();" data-rel="popup" data-position-to="window" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-info ui-btn ui-btn-icon-left ui-shadow ui-corner-all") NOTE
+				a(onclick="current.fail();" style="float:right;margin-right:10px" href="javascript:;" class="ui-btn-b ui-icon-delete ui-btn ui-btn-icon-left ui-shadow ui-corner-all") FAIL
+				a(onclick="current.pass();" style="float:right;margin-right:10px" href="javascript:;" class="ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all") PASS
+			div(data-role="popup" id="popupNote" data-theme="a" class="ui-corner-all")
+				form
+					div(style="padding:10px 20px;")
+						p(style="color: #666;") write your note here
+						textarea(id="noteTextarea" name="note" rows="6" placeholder="note...")
+						a(href="/test" onclick="current.note($('#noteTextarea').val());" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left ui-icon-check") confirm
+			div#desc
+				div(data-role="header" style="border:none;border-bottom: 1px solid rgba(0,0,0,.4)")
+					h1(class="ui-title" role="heading" aria-level="1") Description
+					a(onclick="document.getElementById('desc').style.display = 'none';return false;" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-btn-b ui-btn-right") close
+				div(data-role="main" style="padding:8px;background:#dfe3da;border-top:1px solid white") 
+					table(id="descTable" width="100%" height="100%" cellpadding="0" cellspacing="0")
+						tr(height="20px")
+							td(class="pass-header header-base" valign="center")
+								span.desc-title Pass
+							td(class="pass-body body-base") 
+						tr(height="20px")
+							td(class="fail-header header-base" valign="center")
+								span.desc-title Fail
+							td(class="fail-body body-base") 
+						tr(height="20px")
+							td(class="step-header header-base" valign="center")
+								span.desc-title Step
+							td(class="step-body body-base")
+						tr.blank
+							td(width="100%" align="center") this case has no description.
+		script(src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js")
+		script.
+			$(window).on('navigate', function(){
+				console.log(arguments);
+			})
+

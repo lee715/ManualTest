@@ -1,0 +1,201 @@
+body{
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+	color: #666;
+}
+a {
+	text-decoration: none;
+}
+a.button{
+	width: 100%;
+	height: 24px;
+	display: block;
+	float: left; 
+	text-align: center;
+	padding: 10px 0;
+	line-height: 24px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+}
+
+a.button:active{
+	opacity: 0.5;
+}
+
+#toTest {
+	font-size: 20px;
+	line-height: 22px;
+	text-decoration: underline;
+	color: #999;
+}
+#toTest:hover {
+	color: #666;
+}
+.refresh{
+	background: url('images/refresh.png') no-repeat;
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#testProcess{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+header{
+	text-align: center;
+	width: 300px;
+}
+#form{
+	width: 300px;
+}
+#form input,select{
+	padding: 8px;
+	border: 1px solid #ccc;
+	color: #666;
+}
+#form button{
+	padding: 5px 10px;
+	color: #666;
+	font-size: 22px;
+	margin-left: 90px;		
+}
+.fail{
+	/*background-color: red;*/
+	color: red;
+}
+.pass {
+	/*background-color: green;*/
+	color: green;
+}
+.header {
+	background-color: #a7b3c2;
+	color: white;
+}
+.retest{
+	color: #666;
+	cursor: pointer;
+}
+
+#testReport {
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+}
+#testReport table{
+	border: 1px solid #f1f2e7;
+}
+
+#testReport tr:nth-child(2n){
+	background-color: #f2f2f2;
+}
+#testReport a{
+	color: #666;
+	font-size: 26px;	
+	margin-right: 10px;
+}
+.controls{
+	text-align: center;	
+	padding: 12px 0 30px 0;	
+}
+
+/*note area*/
+#noteArea{
+	position: fixed;
+	bottom: -62px;
+	right: 0;
+	left: 0;
+	height: 60px;
+	width: 100%;
+	-webkit-transition-property: bottom;
+    -webkit-transition-duration: 0.5s;
+}
+#noteArea input{
+	width: 100%;
+	padding: 9px;
+	line-height: 40px;
+	border: 1px solid #ccc;
+}
+#noteArea .button {
+	line-height: 40px;
+	height: auto;
+	float: none;
+}
+#noteArea .button:active{
+	opacity: 1;
+}
+/*note area*/
+
+/*header desc*/
+#descWrap {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	padding: 10px;
+	background-color: #f1f2e7;
+	box-shadow: 0 0 2px 0 rgba(0,0,0,0.5);
+	/*-webkit-transition-property: top;
+    -webkit-transition-duration: 0.5s;*/
+}
+#descWrap .menu {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	background-image: url('../images/menu.png');
+	background-position: center center;
+	background-size: 34px 11px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	opacity: 0.5;
+}
+#descTable {
+	font-size: 14px;
+	width: 100%;
+}
+
+.desc-title {
+	text-align: center;
+}
+.body-base {
+	color: #333;
+	margin: 0;
+	width: 100%;
+	padding: 8px;
+}
+
+.header-base {
+	position: relative;
+	color: white;
+	margin: 0;
+	font-weight: bold;
+	line-height: 24px;
+	padding: 8px;
+}
+
+.pass-header {
+	background: rgb(183,217,103);
+}
+.pass-body {
+	background: rgba(183,217,103, 0.6);
+}
+
+.fail-header {
+	background: rgb(243,130,131);
+}
+.fail-body {
+	background: rgba(243,130,131, 0.6);
+}
+
+.step-header {
+	background: rgb(254,209,116);
+}
+.step-body {
+	background: rgba(254,209,116, 0.6);
+}
+/*header desc end*/

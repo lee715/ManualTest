@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>mediaTest1</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+
+		#flashPlugin{
+			padding:50px;
+			border:50px;
+			border-style:solid;
+			border-color:yellow;
+			width:200px;
+			height:200px;
+			background:blue;
+		}
+
+		video{
+			padding:50px;
+			border:50px;
+			border-style:solid;
+			border-color:yellow;
+			width:200px;
+			height:200px;
+			background:blue;
+			}
+		</style>
+		<script type="text/javascript">
+		  function openFullScreenFlash() {
+		      window.open("../resources/test.swf","","width=200,height=200");
+		  }
+		</script>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">gtk-windowed-grey-glitch</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="gtk-windowed-grey-glitch">
+					</li>
+					<li>
+						<label for="task2">flash-has-border-and-color</label>
+						<input  class="checkbox" type="checkbox" id="task2" data-pass="flash-has-border-and-color">
+					</li>
+					<li>
+						<label for="task3">video-has-border-and-color</label>
+						<input  class="checkbox" type="checkbox" id="task3" data-pass="video-has-border-and-color">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>mediaTest 1</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Test grey glitch with fullscreen Flash animation (but 47742)【1】</p>
+					<p><b>STEPS TO TEST:</b>
+						Play a swf video.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						alert SUCCESS or show SUCCESS in the log div
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						Nothing happened.  If it doesn't pass, it fails.
+					</p>
+				</div>
+				<OBJECT id=obj5 title="swf">
+				  <PARAM NAME="movie" VALUE="../resources/test.swf">
+				  <PARAM NAME="quality" VALUE="High">
+				  <embed src="../resources/test.swf" name="obj5" width="640" height="480" wmode="transparent">
+				</OBJECT>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>flash-has-border-and-color【2】</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						When the following flash playing, it should have yellow padding and blue border.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<div>
+				    <embed id="flashPlugin" src="../resources/test.swf"type="application/x-shockwave-flash" >
+				    </embed>
+				</div>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>video-has-border-and-color【3】</p>
+					<p><b>STEPS TO TEST:</b>
+						Click the blank field in the page.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						When the following video playing, it should .have yellow padding and blue border.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<video src="../resources/1.mp4" controls="controls">
+				your browser does not support the video tag
+				</video>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Select test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		a{
+			padding: 10px;
+			background-color: #04477C;
+			border-radius: 5px;
+			text-decoration: none;
+			color: white;
+		}
+
+		select { display: block; font-size: 16px; }
+	    /*label { display: block; font: 13px "Lucida Grande"; }*/
+	    #reflection { font: 13px "Lucida Grande"; padding: 10px; width: 245px; }
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">chrome-bidi-text</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="chrome-bidi-text">
+					</li>
+					<li>
+						<label for="task2">pop-up-alignment-and-direction</label>
+						<input  class="checkbox" type="checkbox" id="task2" data-pass="pop-up-alignment-and-direction">
+					</li>
+					<li>
+						<label for="task3">select-narrow-width</label>
+						<input  class="checkbox" type="checkbox" id="task3" data-pass="select-narrow-width">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>Select Test</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>chrome-bidi-text【1】</p>
+					<p><b>STEPS TO TEST:</b>
+						This tests drawing bidirectional text in Windows Safari chrome. Click the
+    					Start button and follow the instructions.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						In the test page, the window title is rendered exactly like the selected item.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<p style="width: 300px;"></p>
+				<a href='javascript:0;' onclick='open("../resources/chrome-bidi-text-window.html", null, "toolbar=no")'>Click to start</a>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>pop-up-alignment-and-direction【2】</p>
+					<p><b>STEPS TO TEST:</b>
+						For each of the direction settings below, and for each item in the pop-up menu below, verify that the alignment and content match between the pop-up button, the menu item, and the value as it is reflected below the pop-up button, and that the checkmarks appear on the start side of the item.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						Match.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						Not match.
+					</p>
+				</div>
+				<p style="width: 300px;"></p>
+				<label><input type="radio" name="direction" value="ltr" checked onchange="directionChanged(event)"> Left to right</label><br>
+				<label><input type="radio" name="direction" value="rtl" onchange="directionChanged(event)"> Right to left</label>
+
+				<select id="menu">
+				    <option style="direction: ltr;">
+				        First שניה (03) רביעית fifth
+				    </option>
+				    <option style="direction: rtl;">
+				        First שניה (03) רביעית fifth
+				    </option>
+				    <option style="direction: ltr; unicode-bidi: bidi-override;">
+				        First שניה (03) רביעית fifth
+				    </option>
+				    <option style="direction: rtl; unicode-bidi: bidi-override;">
+				        First שניה (03) רביעית fifth
+				    </option>
+				    <option>
+				        משהו עם נִקּוּד
+				    </option>
+				    <option>
+				        اللغة العربية
+				    </option>
+				    <option>
+				        Et volia&#x0300: ATSUI!
+				    </option>
+				    <option>
+				        Directional &#x202e;overrides&#x202c; are confusing.
+				    </option>
+				    <option>
+				        She said &ldquo;&#x202b;יש TNT במזוודה!&#x202c;&rdquo; and ran off
+				    </option>
+				</select>
+				<div id="reflection">
+				    First שניה (03) רביעית fifth
+				</div>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Select narrow width manual test. Bug ID: https://bugs.webkit.org/show_bug.cgi?id=25904【3】</p>
+					<p>
+						This test ensures that items in a select control can be selected. There was a bug in Mac Chromium where select controls did not initialize their widths properly, and while a click on the control would display the popup, subsequent clicks on menu items were disregarded.<br>
+						The bug was most easily reproduced with select controls containing many (more than 20) items that had narrow widths. 
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The select element display normally.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<p style="width: 300px;"></p>
+				<select id="selectId">
+				  <option>a</option>
+				  <option>b</option>
+				  <option>c</option>
+				  <option>d</option>
+				  <option>e</option>
+				  <option>f</option>
+				  <option>g</option>
+				  <option>h</option>
+				  <option>i</option>
+				  <option>j</option>
+				  <option>k</option>
+				  <option>l</option>
+				  <option>m</option>
+				  <option>n</option>
+				  <option>o</option>
+				  <option>p</option>
+				  <option>q</option>
+				  <option>r</option>
+				  <option>s</option>
+				  <option>t</option>
+				  <option>u</option>
+				  <option>v</option>
+				  <option>w</option>
+				  <option>x</option>
+				  <option>y</option>
+				  <option>z</option>
+				</select>
+			</div><!-- .case end -->
+			<br><br><hr>
+
+
+		<script>
+		    var reflection = document.getElementById("reflection");
+
+		    document.getElementById("menu").onchange = function(event) {
+		        var option = event.target.item(event.target.selectedIndex);
+		        reflection.innerHTML = option.innerHTML;
+		        optionStyle = getComputedStyle(option);
+		        reflection.style.direction = optionStyle.direction;
+		        reflection.style.unicodeBidi = optionStyle.unicodeBidi;
+		        reflection.style.textAlign = getComputedStyle(event.target).direction === "ltr" ? "left" : "right";
+		    }
+
+		    function directionChanged(event)
+		    {
+		        document.getElementById('menu').style.direction = event.target.value;
+		        reflection.style.textAlign = event.target.value === "ltr" ? "left" : "right";
+		    }
+		</script>
+			
+		<script>
+			// place your test case JS code here
+			//do something...
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>

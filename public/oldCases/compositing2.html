@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Fixed-position-out-of-view-scroll-prepaint</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		body {
+	      height: 2000px;
+	      margin: 0px;
+	      padding: 0px;
+	    }
+	    .main {
+	      position: fixed;
+	    }
+	    .fixed {
+	      position: fixed;
+	      width: 100%;
+	      height: 100px;
+	      left: 0px;
+	      bottom: -100px;
+	      background-color: red;
+	    }
+		ol li{
+			margin:5px;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			
+			<!-- place your test case HTML content here -->
+			<h1>Fixed-position-out-of-view-scroll-prepaint</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>This test is applicable on platforms that do accelerated compositing, can prepaint out-of-view contents and can scroll the contents into the viewport without repainting them.</p>
+					<p><b>The following settings need to be enabled:</b></p>
+					<p>- acceleratedCompositingForFixedPositionEnabled<br>
+				    - fixedPositionCreatesStackingContext</p>
+					<p><b>STEPS TO TEST:</b>
+						To test, scroll the page up and down.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The test passes if there is no temporary or permanent red in the page.
+					</p>
+				</div>
+				<div class="main">
+				    This test is applicable on platforms that do accelerated compositing, can prepaint out-of-view contents and can scroll the contents into the viewport without repainting them.<br>
+					The following settings need to be enabled:<br>
+
+					- acceleratedCompositingForFixedPositionEnabled<br>
+					- fixedPositionCreatesStackingContext<br>
+
+					To test, scroll the page up and down. The test passes if there is no temporary or permanent red in the page.
+				</div>
+
+				<!-- An out-of-view fixed element that should be never visible -->
+				<div class="fixed"></div>
+			</div><!-- .case end -->
+
+	</body>
+</html>

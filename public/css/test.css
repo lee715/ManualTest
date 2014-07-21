@@ -1,58 +1,85 @@
 body{
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	margin: 0;
 	padding: 0;
 	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
-	color: #666;
 }
-a.button{
-	width: 120px;
-	height: 46px;
-	display: block;
-	float: left; 
-	text-align: center;
-	padding: 17px;
-	line-height: 46px;
-	font-size: 40px;
-	color: white;
-	cursor: pointer;
+
+.header {
+	top: 0;position: fixed;left: 0;right: 0;border:none;border-bottom:1px solid rgba(0,0,0,.4);z-index:9;
 }
-.refresh{
-	background: url('images/refresh.png') no-repeat;
+
+.main {
+	padding:30px;
+	margin:43px 0 49px 0;
+	border-top: 1px solid white;
+}
+
+.footer {
+	bottom: 0;position: fixed;left: 0;right: 0;border:none;border-top:1px solid rgba(0,0,0,.4);
+}
+
+#desc {
 	position: absolute;
-	top: 20px;
-	right: 30px;
-	width: 40px;
-	height: 40px;
-	background-size: 40px 40px;
+	right: 0;
+	top: 0;
+	width: 80%;
+	box-shadow: 0 0 8px rgba(0,0,0,.4);
+	border-radius: 10px;
+	display: none;
+	z-index: 10;
 }
-#testProcess{
-	position: relative;
-	width:100%;
-	height: 100%;
+
+iframe {
+	border:none;
 }
-header{
+
+#descTable {
+	font-size: 14px;
+	width: 100%;
+	text-shadow: none;
+}
+
+.desc-title {
 	text-align: center;
 }
-#form{
-	width: 260px;
-	margin: auto;
-}
-#form input,select{
+.body-base {
+	color: #333;
+	margin: 0;
+	width: 100%;
 	padding: 8px;
-	border: 1px solid #ccc;
-	color: #666;
 }
-#form button{
-	padding: 5px 10px;
-	color: #666;
-	font-size: 22px;
-	margin-left: 90px;		
+
+.header-base {
+	position: relative;
+	color: white;
+	margin: 0;
+	font-weight: bold;
+	line-height: 24px;
+	padding: 8px;
 }
+
+.pass-header {
+	background: rgb(183,217,103);
+}
+.pass-body {
+	background: rgba(183,217,103, 0.6);
+}
+
+.fail-header {
+	background: rgb(243,130,131);
+}
+.fail-body {
+	background: rgba(243,130,131, 0.6);
+}
+
+.step-header {
+	background: rgb(254,209,116);
+}
+.step-body {
+	background: rgba(254,209,116, 0.6);
+}
+
+/* report */
 .fail{
 	/*background-color: red;*/
 	color: red;
@@ -61,50 +88,38 @@ header{
 	/*background-color: green;*/
 	color: green;
 }
-.header {
-	background-color: #a7b3c2;
+.rep-header {
+	background-color: #a7b3c2 !important;
 	color: white;
 }
 .retest{
 	color: #666;
 	cursor: pointer;
 }
-td{
-	padding: 8px;
-}
+
 #testReport {
 	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
 }
 #testReport table{
+	border: 1px solid #ddd;
+}
+#testReport td {
+	padding:6px;
+}
+#testReport input {
+	width: 90%;
 	border: 1px solid #eee;
+	padding: 4px;
 }
 #testReport tr:nth-child(2n){
-	background-color: #f2f2f2;
+	background-color: #f2f1e7;
 }
-#testReport a{
-	color: #666;
-	font-size: 26px;	
-	margin-right: 10px;
+#testReport tr:nth-child(2n+1){
+	background-color: white;
 }
-.controls{
-	text-align: center;	
-	padding: 12px 0 30px 0;	
-}
-#noteArea{
-	padding: 10px;
-	margin: 0;
-	line-height: 58px;
-	font-size: 36px;
-	color: #666;
-	border: 1px solid #ccc;
-	float: left;
-	display: block;
-}
-.note-input{
+
+#noteTextarea {
+	background: #f2f1e7;
 	border: none;
-	background: transparent;
-	margin: 0;
-	padding: 4px;
 	color: #666;
-	width: 100%;
 }

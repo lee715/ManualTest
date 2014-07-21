@@ -22,13 +22,47 @@ app.get('/test', function(req, res){
 	});
 });
 
+app.get('/report', function(req,res){
+	res.render('report.jade');
+})
+
+app.get('/login', function(req, res){
+	Models.Plan.find({}, function(err, plans){
+		if(err) return res.send(err.message);
+		plans.sort(function(a, b){
+			if(a.time.getTime() < b.time.getTime())
+				return true;
+			else
+				return false;
+		});
+		res.render('login.jade', {plans: plans});
+	});
+});
+
+app.get('/', function(req, res){
+	res.redirect('/login');
+});
+
+app.post('/login', function(req, res){
+	
+});
+
 app.get('/getFiles', function(req, res){
-	fs.readdir('./public/testCases', function(err, files){
+	var base = './public/testCases';
+	fs.readdir(base, function(err, files){
 		if(err){
 			console.log(err.message);
 			res.send('fail to read dir /cases');
 		}else{
-			res.json(files);
+			var r = [], _fs;
+			for(var i=0,l=files.length;i<l;i++){
+				_fs = fs.readdirSync(base+'/'+files[i]);
+				for(var j=0,m=_fs.length;j<m;j++){
+					_fs[j] = files[i]+'/'+_fs[j];
+				}
+				r = r.concat( _fs );
+			}
+			res.json(r);
 		}
 	});
 })

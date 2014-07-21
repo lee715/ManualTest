@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Transition of left property</title>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <style>
+        #target {
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+        }
+
+        #target.green {
+            width: 100px;
+            background-color: green;
+            -webkit-transition-property: background-color;
+            -webkit-transition-duration: 5s;
+        }
+
+        #target.square {
+            width: 100px;
+            height: 100px;
+            -webkit-transition-property: height;
+            -webkit-transition-duration: 2s;
+        }
+    </style>
+</head>
+<body>
+    <div id="desc" style="display:none">
+      <div id="pass-desc">
+        1. 第一次点击change按钮，黄色方块会立即变为矩形，颜色渐变至绿色</br>
+        2. 第二次点击change按钮，绿色矩形立即变成小的黄色方块</br>
+        3. 第三次点击change按钮，黄色小方块会立即变成黄色矩形，并在2s内逐渐变化为大的黄色方块</br>
+        4. 第四次点击change按钮，黄色大方块立即变成黄色矩形，并在5s内逐渐变成绿色矩形</br>
+        5. 第五次点击change按钮，绿色矩形立即变成小的黄色方块</br>
+        6. 第六次点击change按钮，黄色方块立即变成黄色矩形，颜色在5s内由黄色渐变至绿色</br>
+        7. 第七次点击change按钮，绿色方块立即变成黄色矩形，并在2s内逐渐变成大的黄色方块</br>
+        8. 第八次点击change按钮，黄色大方块立即变成小的黄色方块</br>
+      </div>
+      <div id="fail-desc">
+        与Pass描述不符
+      </div>
+      <div id="step-desc">
+        多次点击change按钮
+      </div>
+    </div>
+<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+      <td class="desc-body body-base">test transitions</td>
+    </tr>
+    <tr>
+      <td class="pass-header"><div class="title">Pass</div></td>
+      <td class="pass-body body-base">
+        1. 第一次点击change按钮，黄色方块会立即变为矩形，颜色渐变至绿色</br>
+        2. 第二次点击change按钮，绿色矩形立即变成小的黄色方块</br>
+        3. 第三次点击change按钮，黄色小方块会立即变成黄色矩形，并在2s内逐渐变化为大的黄色方块</br>
+        4. 第四次点击change按钮，黄色大方块立即变成黄色矩形，并在5s内逐渐变成绿色矩形</br>
+        5. 第五次点击change按钮，绿色矩形立即变成小的黄色方块</br>
+        6. 第六次点击change按钮，黄色方块立即变成黄色矩形，颜色在5s内由黄色渐变至绿色</br>
+        7. 第七次点击change按钮，绿色方块立即变成黄色矩形，并在2s内逐渐变成大的黄色方块</br>
+        8. 第八次点击change按钮，黄色大方块立即变成小的黄色方块</br>
+      </td>
+    </tr>
+    <tr>
+      <td class="fail-header"><div class="title">Fail</div></td>
+      <td class="fail-body body-base">与Pass描述不符</td>
+    </tr>
+    <tr>
+      <td class="step-header"><div class="title">Step</div></td>
+      <td class="step-body body-base">
+        多次点击change按钮
+      </td>
+    </tr>
+  </table>
+  </br> -->
+<p id="instructions">
+    <button style="display: block;" onclick="transition()">Change</button>
+</p>
+<div id="target"></div>
+<script>
+    var state = 0;
+    var transitions = [
+        {className:"green", description:"instantly change into a rectangle and fade from yellow to green over 5 seconds"},
+        {className:"", description:"instantly change into a small yellow square"},
+        {className:"square", description:"instantly change into a yellow rectangle and then animate into a big yellow square over 2 seconds"},
+        {className:"green", description:"instantly change into a yellow rectangle and then animate to a green rectangle over 5 seconds"},
+        {className:"", description:"instantly change into a small yellow square"},
+        {className:"green", description:"instantly change into a yellow rectangle and fade from yellow to green over 5 seconds"},
+        {className:"square", description:"instantly change to a yellow rectangle and then animate into a large yellow square over 2 seconds"},
+        {className:"", description:"instantly change into a small yellow square"}
+    ];
+
+    function transition()
+    {
+        var target = document.getElementById("target");
+        target.className = transitions[state].className;
+        state++;
+    }
+</script>
+</body>
+</html>

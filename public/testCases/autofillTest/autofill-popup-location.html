@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Auto fill test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+    	<link rel="stylesheet" type="text/css" href="../../css/base.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		</style>
+
+	</head>
+	<body>
+		<div id="desc" style="display:none">
+	      <div id="pass-desc">
+	        自动填充弹框显示在正确的位置.
+	      </div>
+	      <div id="fail-desc">
+	        自动填充弹框显示在错误的位置.
+	      </div>
+	      <div id="step-desc">
+	      	测试一（第一个输入框）：
+	        <ol>
+		      <li> 在输入框中输入 'Always show bookmarks bar'</li>
+		      <li> 在输入框中输入“Test”.</li>
+		      <li> 输入“a”，并确保 'Always show bookmarks bar' 显示在自动填充的弹框中.</li>
+		      <li> 通过 Ctrl-a 选中“a”.</li>
+		      <li> 输入“t”，确保 'Test' 显示在自动填充的弹框中，并且自动填充弹框的位置是正确的.</li>
+	    	</ol>
+	    	测试二（第二个输入框）：
+	    	<ol>
+		      <li> 在输入框中输入 'This is really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text.'. 然后按回车键提交。</li>
+		      <li>回到提交前的页面</li>
+		      <li> 输入“T”，确保输入的内容出现在自动填充弹框中，并且弹框的宽度会超出浏览器视窗。如果你的电脑分辨率太高，使得弹框的宽度不足以超出浏览器视图，请输入更多的字符，并重新测试。
+		      <li> 在下面的输入框中输入 'This is short text.' 并回车提交.</li>
+		      <li> 输入“t”，并确保'This is short text.'显示在自动填充弹框中.</li>
+		      <li> 输入“h”，确保自动填充弹框位置正确.</li>
+		      <li> 按下箭头并确保弹框显示无误.</li>
+		    </ol>
+	      </div>
+	    </div>
+		<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+	    <tr>
+	      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+	      <td class="desc-body body-base">测试自动填充弹框是否显示在正确的位置.</td>
+	    </tr>
+	    <tr>
+	      <td class="pass-header"><div class="title">Pass</div></td>
+	      <td class="pass-body body-base">
+	        自动填充弹框显示在正确的位置.
+	      </td>
+	    </tr>
+	    <tr>
+	      <td class="fail-header"><div class="title">Fail</div></td>
+	      <td class="fail-body body-base">自动填充弹框显示在错误的位置..</td>
+	    </tr>
+	    <tr>
+	      <td class="step-header"><div class="title">Step</div></td>
+	      <td class="step-body body-base">
+	      	测试一（第一个输入框）：
+	        <ol>
+		      <li> 在输入框中输入 'Always show bookmarks bar'</li>
+		      <li> 在输入框中输入“Test”.</li>
+		      <li> 输入“a”，并确保 'Always show bookmarks bar' 显示在自动填充的弹框中.</li>
+		      <li> 通过 Ctrl-a 选中“a”.</li>
+		      <li> 输入“t”，确保 'Test' 显示在自动填充的弹框中，并且自动填充弹框的位置是正确的.</li>
+	    	</ol>
+	    	测试二（第二个输入框）：
+	    	<ol>
+		      <li> 在输入框中输入 'This is really long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text.'. 然后按回车键提交。</li>
+		      <li>回到提交前的页面</li>
+		      <li> 输入“T”，确保输入的内容出现在自动填充弹框中，并且弹框的宽度会超出浏览器视窗。如果你的电脑分辨率太高，使得弹框的宽度不足以超出浏览器视图，请输入更多的字符，并重新测试。
+		      <li> 在下面的输入框中输入 'This is short text.' 并回车提交.</li>
+		      <li> 输入“t”，并确保'This is short text.'显示在自动填充弹框中.</li>
+		      <li> 输入“h”，确保自动填充弹框位置正确.</li>
+		      <li> 按下箭头并确保弹框显示无误.</li>
+		    </ol>
+	      </td>
+	    </tr>
+	  </table> -->
+	  <!-- </br> -->
+	    <form><input name=q></form>
+
+	    <form><input name=p></form>
+			
+	</body>
+</html>

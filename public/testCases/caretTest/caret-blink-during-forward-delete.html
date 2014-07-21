@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Caret tests</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		iframe {
+        border: 1px solid black;
+        width: 400px;
+    }
+
+		</style>
+
+	</head>
+
+	<body>
+		<div id="desc" style="display:none">
+	      <div id="pass-desc">
+	        该项测试每10ms删除一个字符，共删除200个字符
+	      </div>
+	      <div id="fail-desc">
+	        当字符被删除时，光标应该不闪烁
+	      </div>
+	      <div id="step-desc">
+	      	与pass描述不符
+	      </div>
+	    </div>
+		<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+				<td class="desc-body body-base">该项测试每10ms删除一个字符，共删除200个字符</td>
+			</tr>
+			<tr>
+				<td class="pass-header"><div class="title">Pass</div></td>
+				<td class="pass-body body-base">当字符被删除时，光标应该不闪烁.</td>
+			</tr>
+			<tr>
+				<td class="fail-header"><div class="title">Fail</div></td>
+				<td class="fail-body body-base">与pass描述不符</td>
+			</tr>
+		</table>
+		</br> -->
+				
+		<div id="test" contenteditable></div>
+
+		<script>
+			// place your test case JS code here
+			var test = document.getElementById('test');
+			var text = '';
+			for (var i = 0; i < 200; i++)
+			    text += 'a';
+			test.textContent = text;
+
+			test.focus();
+			getSelection().collapse(test, 0);
+			for (var i = 0; i < 200; i++)
+			    setTimeout(function () {document.execCommand('ForwardDelete', false, null);}, i * 10);
+
+		</script>
+	</body>
+</html>

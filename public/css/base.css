@@ -1,0 +1,66 @@
+body{
+	font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
+	margin: 0;
+	background-color: #f2f1e7;
+}
+
+a {
+	text-decoration: none;
+}
+
+/*colors*/
+.green {
+	background: #b7d967;
+	color: white;
+}
+
+.blue {
+	background: #a3e6f8;
+	color: white;
+}
+
+.purple {
+	background: #c7b3ef;
+	color: white;
+}
+
+.red{
+	background: #f38283;
+	color: white;
+}
+
+.yellow {
+	background: #fed174;
+	color: white;
+}
+
+.darkblue {
+	background: #acc7bf;
+	color: white;
+}
+
+.gray {
+	background: #a7b3c2 !important;
+	color: #999;
+}
+/*colors end*/
+
+.fix {
+	opacity: 0;
+}
+
+
+.measure {
+	position: relative;
+	border-left: 1px dashed #333;
+	border-right: 1px dashed #333;
+}
+
+.valign-line {
+	border-left: 1px dashed #333;
+	width: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+}
+

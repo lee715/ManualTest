@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>iframe test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../kernelTest.js"></script>
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		a{
+			padding: 5px;
+			background-color: #C5DA01;
+			text-decoration: none;
+			border-radius: 3px;
+			color: black;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- Here is the Menu -->
+			<div class="par">≡</div>
+			<div class="todolist">
+				<h1>测试内容</h1>
+				<hr>
+				<p><span>请勾选测试通过的选项：</span></p>
+				<ol>
+					<li>
+						<label for="task1">frameset label</label>
+						<input  class="checkbox" type="checkbox" id="task1" data-pass="frameset label">
+					</li>
+					<li>
+						<label for="task2">iframe test</label>
+						<input  class="checkbox" type="checkbox" id="task2" data-pass="iframe test">
+					</li>
+				</ol>
+				<p><span>请综合评价测试是否通过或跳过：</span></p>
+				<div style="padding-left: 20px;">
+					<div>
+						<textarea class="ktest-comments" placeholder="在此处填写评语，选填"></textarea>
+					</div>
+					<a id="ktest-pass" class="ktest-btn result">pass</a>
+					<a id="ktest-fail" class="ktest-btn result">fail</a>
+					<a id="ktest-next" class="ktest-btn">next</a>
+				</div>
+			</div><!-- Menu end -->
+			
+			<!-- place your test case HTML content here -->
+			<h1>iframe test</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Test the "frameset" label【1】 </p>
+					
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						"frameset" displays normally.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<p>Because HTML5 doesn't support the "frameset" label, you should click the button below to begin the test, and then <b>GO BACK</b> to this page to record the result.
+				</p>
+				<a href='javascript:0;' onclick='opframeset()'>Click here to begin the test!</a>
+			</div><!-- .case end -->
+
+			<br><br><hr>
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>  iframe test【2】</p>
+					<p>This test recreates scenario when an iframe is reparented from one page to another using 'live iframe transfer' (with adoptNode() used on the iframe right before re-parenting into the other page's DOM tree). Then the original page is closed, destroying some internal objects that are associated with the top frame/page/WebVeiw.<br>
+					In Chromium, this destroys the underlying NotificationPresenter object which is associated with the Page, and as a result, the use of webkitNotification object from JavaScript can crash the browser or return bogus results ('use-after-delete').
+					</p>
+					<p><b>STEPS TO TEST:</b>
+						Open this test in Chromium and click the button to start the test. 
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						If the test doesn't crash, and prints expected results, the bug is not regressed.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<a href='javascript:0;' onclick='start()'>Start test</a>
+				<pre id="log"></pre>
+				<br><br>
+			</div><!-- .case end -->
+
+		<script>
+		window.log = function(message)
+		{
+		  document.getElementById("log").innerText += message + "\n";
+		}
+		function childLoaded()
+		{
+		  log("Child window loaded.");
+		  window.childWindow.addAndTransferIframe();
+		}
+		function start()
+		{
+		  window.childWindow = window.open("../resources/iframe-reparenting-close-window-child.html", "_blank");
+		  window.childWindow.addEventListener("load", childLoaded, false);
+		}
+		</script>	
+		<script>
+			// place your test case JS code here
+			//do something...
+			function opframeset(){
+				window.open("../resources/12_iframe1.html", "_blank");
+			}
+
+
+			/********************/ 
+			kTest.init({
+				onResult : function(status, comments){
+					if (status === "passed" || status === "failed"){
+						$(".result").hide();
+					}
+
+					$(".ktest-comments").val(comments);
+				}
+			});
+
+			$(".ktest-btn").bind("click", function(){
+				var str = '';
+				$('.checkbox').each(function(){
+					if($(this).attr("checked") == true)
+						str+='<span class="passed">'+$(this).data("pass")+"</span>;";
+					else
+						str+='<span class="failed">'+$(this).data("pass")+"</span>;"
+				})
+				var comments = str + $(".ktest-comments").val();
+				var id =this.id;
+				switch(id){
+					case "ktest-pass": kTest.pass(comments); break;
+					case "ktest-fail": kTest.fail(comments); break;
+					case "ktest-next": kTest.next(comments); break;
+				}
+			});
+			$('.par').on("click",function(){
+				if($('.par').html() =='≡')
+					$('.par').html('×');
+				else
+					$('.par').html('≡');
+				$('.todolist').toggle();
+				$('.checkbox').each(function(index){
+					console.log(this.data('note'));
+				});
+			});
+			$('.todolist').toggle();
+		</script>
+	</body>
+</html>

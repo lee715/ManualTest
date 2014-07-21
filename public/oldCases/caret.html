@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Caret tests</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		iframe {
+        border: 1px solid black;
+        width: 400px;
+    }
+
+		</style>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- place your test case HTML content here -->
+			<h1>Caret tests</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>This tests forward deleting 200 characters with 10ms intervals.【1】</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The caret shown below should not blink while the characters are being deleted.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+					</p>
+				</div>
+				<div id="test" contenteditable></div>
+			</div><!-- .case end -->
+
+			<br><br><hr>
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>Manual test for fix for <a href="rdar://problem/3690705">rdar://problem/3690705</a> "caret does not move when scrolling overflow: auto editable area"【2】</p>
+					<p><b>STEPS TO TEST:</b>
+						Click inside the block below, a caret should appear.  Grab the block's scroll handle and scroll down.  The caret blinks, try to grab the scroll handle while the caret is visible.  The caret should scroll and disappear when it reaches the block's border.
+
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The caret blinks correctly.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<div contentEditable style="border: 1px solid blue; height: 100px; overflow:scroll;">
+					one<br>
+					two<br>
+					three<br>
+					four<br>
+					five<br>
+					six<br>
+					seven<br>
+					eight<br>
+					one<br>
+					two<br>
+					three<br>
+					four<br>
+					five<br>
+					six<br>
+					seven<br>
+					eight<br>
+				</div>
+			</div><!-- .case end -->
+
+			<br><br><hr>
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>caret-in-compositing-frame【3】</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The caret should blink correctly when editing the paragraph in the frame.
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						If it doesn't pass, it fails.
+					</p>
+				</div>
+				<iframe src="../resources/editable-compositing-subframe.html" scrolling="no"></iframe>
+
+			</div><!-- .case end -->
+			<br><br>
+
+
+			
+		<script>
+			// place your test case JS code here
+			var test = document.getElementById('test');
+			var text = '';
+			for (var i = 0; i < 200; i++)
+			    text += 'a';
+			test.textContent = text;
+
+			test.focus();
+			getSelection().collapse(test, 0);
+			for (var i = 0; i < 200; i++)
+			    setTimeout(function () {document.execCommand('ForwardDelete', false, null);}, i * 10);
+
+		</script>
+	</body>
+</html>

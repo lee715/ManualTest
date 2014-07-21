@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Transition Delay</title>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <style>
+      #container {
+        position: absolute;
+        width: 400px;
+        height: 340px;
+        border: 8px solid black;
+      }
+      
+      .box {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        background-color: #66F;
+        z-index: 0;
+      }
+      
+      #container.slide > .box {
+        -webkit-transform: translateX(280px);
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 2s;
+      }
+      
+      #box1 {
+        -webkit-transition-delay: 200ms;
+      }
+
+      #box2 {
+        -webkit-transition-delay: 2s;
+      }
+
+      #box3 {
+        -webkit-transition-delay: 4s;
+      }
+     </style>
+     
+</head>
+<body>
+  <div id="desc" style="display:none">
+      <div id="pass-desc">
+        <ol>
+          <li>200ms后，即方框颜色变红时第一个矩形开始移动</li>
+          <li>2s后，即方框颜色变绿时第二个矩形开始移动</li>
+          <li>4s后，即方框颜色变黄时第三个矩形开始移动</li>
+        </ol>
+      </div>
+      <div id="fail-desc">
+        与Pass描述不符
+      </div>
+      <div id="step-desc">
+        点击方框内任意位置按钮
+      </div>
+    </div>
+<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+      <td class="desc-body body-base">Testing -webkit-transition-delay</td>
+    </tr>
+    <tr>
+      <td class="pass-header"><div class="title">Pass</div></td>
+      <td class="pass-body body-base">
+        1. 200ms后，即方框颜色变红时第一个矩形开始移动</br>
+        2. 2s后，即方框颜色变绿时第二个矩形开始移动</br>
+        3. 4s后，即方框颜色变黄时第三个矩形开始移动
+      </td>
+    </tr>
+    <tr>
+      <td class="fail-header"><div class="title">Fail</div></td>
+      <td class="fail-body body-base">与Pass描述不符</td>
+    </tr>
+    <tr>
+      <td class="step-header"><div class="title">Step</div></td>
+      <td class="step-body body-base">
+        点击方框内任意位置
+      </td>
+    </tr>
+  </table>
+  </br> -->
+<div id="container" onclick="move();">
+  <div class="box" id="box1">
+      Delay: 200ms
+  </div>
+  <div class="box" id="box2">
+      Delay: 2s
+  </div>
+  <div class="box" id="box3">
+      Delay: 4s
+  </div>
+</div>
+<script type="text/javascript">
+var move = function(){
+  var d = document.getElementById('container');
+  setTimeout(function(){
+    d.style.borderColor = 'red';
+  }, 200);
+  setTimeout(function(){
+    d.style.borderColor = 'green';
+  }, 2000);
+  setTimeout(function(){
+    d.style.borderColor = 'yellow';
+  }, 4000);
+  d.className = 'slide';
+}
+
+</script>
+</body>
+</html>

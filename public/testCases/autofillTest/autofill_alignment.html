@@ -1,0 +1,57 @@
+﻿<html>
+<head>
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../../css/base.css">
+<title>
+Test auto-fill drop-down items' alignment
+</title>
+</head>
+<body>
+	<div id="desc" style="display:none">
+      <div id="pass-desc">
+        firstname的下拉框内容右对齐，lastname的下拉框内容左对齐
+      </div>
+      <div id="fail-desc">
+        与pass描述不符
+      </div>
+      <div id="step-desc">
+      	<ol>
+			<li>在firstname 和 lastname 输入框中输入一些字符并提交</li>
+			<li>再次打开该文件，双击 firstname 输入区域，查看下拉框文字对齐方式</li>
+			<li>双击 lastname 输入区域，查看下拉框文字对齐方式</li>
+		</ol>
+      </div>
+    </div>
+<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+	<tr>
+		<td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+		<td class="desc-body body-base">Autofill drop-down item's alignment should be the same as the input field.It should align left if the input field's direction is ltr. It should align right if the input field's direction is rtl.</td>
+	</tr>
+	<tr>
+		<td class="pass-header"><div class="title">Pass</div></td>
+		<td class="pass-body body-base">firstname的下拉框内容右对齐，lastname的下拉框内容左对齐</td>
+	</tr>
+	<tr>
+		<td class="fail-header"><div class="title">Fail</div></td>
+		<td class="fail-body body-base">与pass描述不符</td>
+	</tr>
+	<tr>
+		<td class="step-header"><div class="title">Step</div></td>
+		<td class="step-body body-base">
+			<ol>
+				<li>在firstname 和 lastname 输入框中输入一些字符并提交</li>
+				<li>再次打开该文件，双击 firstname 输入区域，查看下拉框文字对齐方式</li>
+				<li>双击 lastname 输入区域，查看下拉框文字对齐方式</li>
+			</ol>	
+		</td>
+	</tr>
+</table>
+</br> -->
+
+<form action="form_action.asp" method="get">
+  First name: <input type="text" name="fname" dir="rtl"/><br />
+  Last name: <input type="text" name="lname" /><br />
+  <input type="submit" value="Submit" />
+</form>
+</body>
+</html>

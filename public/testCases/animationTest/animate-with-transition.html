@@ -1,0 +1,112 @@
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>simple-animation</title>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+  <style type="text/css" media="screen">
+    #mover {
+      position: relative;
+      top: 50px;
+      left: 0px;
+      width: 200px;
+      height: 200px;
+      background-color: #696;
+      -webkit-transition: left 5s, top 5s;
+    }
+    
+    .animate {
+      -webkit-animation-name: simple;
+      -webkit-animation-duration: 2s;
+      -webkit-animation-timing-function: linear;
+      -webkit-animation-fill-mode: backwards;
+    }
+    
+    @-webkit-keyframes simple {
+      50% {
+        left: 200px;
+      }
+      100% {
+        left: 80px;
+      }
+    }
+    .measure {
+      width: 400px;
+      height: 300px;
+    }
+    .l100 {
+      left: 80px;
+    }
+    .l300 {
+      left: 300px;
+    }
+    .red {
+      border-color: #f38283;
+    }
+    .blue {
+      border-color: skyblue;
+    }
+  </style>
+  <script type="text/javascript" charset="utf-8">
+    
+    function doTransition() {
+      var div = document.getElementById("mover");
+      div.style.left = "100px";
+    }
+    
+    function doAnimation() {
+      var div = document.getElementById("mover");
+      div.className = "animate";
+    }
+    
+  </script>
+</head>
+<body>
+  <div id="desc" style="display:none">
+      <div id="pass-desc">
+        1. 点击 “transition” 按钮后方块匀速向蓝线移动</br>
+        2. 点击 “Set Animation”按钮后动画跳跃，移至右黑线后，反向移至红线，在红线处再次发生跳跃，并最终移动至蓝色处。
+      </div>
+      <div id="fail-desc">
+        Nothing happened
+      </div>
+      <div id="step-desc">
+        1. 点击 “transition” 按钮开始第一段持续5s的动画</br>
+        2. 上段动画执行期间（5s内或方块到达蓝线前）点击 “Set Animation”按钮
+      </div>
+    </div>
+  <!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+      <td class="desc-body body-base">Testing setting an animation while a transition is running, in the
+    case where the animation synthesizes the initial keyframe</br><a href="https://bugs.webkit.org/show_bug.cgi?id=41188">https://bugs.webkit.org/show_bug.cgi?id=41188</a></td>
+    </tr>
+    <tr>
+      <td class="pass-header"><div class="title">Pass</div></td>
+      <td class="pass-body body-base">
+        1. 点击 “transition” 按钮后方块匀速向蓝线移动</br>
+        2. 点击 “Set Animation”按钮后动画跳跃，移至右黑线后，反向移至红线，在红线处再次发生跳跃，并最终移动至蓝色处。
+      </td>
+    </tr>
+    <tr>
+      <td class="fail-header"><div class="title">Fail</div></td>
+      <td class="fail-body body-base">Nothing happened.</td>
+    </tr>
+    <tr>
+      <td class="step-header"><div class="title">Step</div></td>
+      <td class="step-body body-base">
+        1. 点击 “transition” 按钮开始第一段持续5s的动画</br>
+        2. 上段动画执行期间（5s内或方块到达蓝线前）点击 “Set Animation”按钮
+      </td>
+    </tr>
+  </table>
+  </br> -->
+  <button onclick="doTransition();">Transition</button>
+  <button onclick="doAnimation();">Set Animation</button>
+  </br>
+  <div class="measure">
+    <div id="mover"></div>
+    <div class="valign-line l100 red"></div>
+    <div class="valign-line l300 blue"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Auto fill test</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../zepto.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+
+		<style type="text/css">
+		ol li{
+			margin:5px;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="desc" style="display:none">
+	      <div id="pass-desc">
+	        Show "PASS" in the log div.
+	      </div>
+	      <div id="fail-desc">
+	        Show "FAIL" in the log div or nothing.
+	      </div>
+	      <div id="step-desc">
+	      	建议点击链接在新的选项卡中测试
+	        <ol>
+				<li>在输入框中输入“apple”。然后点击“submit”按钮或按回车键</li>
+				<li>页面重新加载后，在输入框中输入“ap”，让浏览器自动填充“apple”（或在自动填充的下拉框中选择“apple”）。然后点击“submit”按钮或按回车键。</li>
+			</ol>
+	      </div>
+	    </div>
+		<!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+	    <tr>
+	      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+	      <td class="desc-body body-base">这个测试确认在浏览器自动填充时，输入框的onchange事件会被触发.</td>
+	    </tr>
+	    <tr>
+	      <td class="pass-header"><div class="title">Pass</div></td>
+	      <td class="pass-body body-base">
+	        Show "PASS" in the log div.
+	      </td>
+	    </tr>
+	    <tr>
+	      <td class="fail-header"><div class="title">Fail</div></td>
+	      <td class="fail-body body-base">Show "FAIL" in the log div or nothing.</td>
+	    </tr>
+	    <tr>
+	      <td class="step-header"><div class="title">Step</div></td>
+	      <td class="step-body body-base">
+	        <ol>
+				<li>在输入框中输入“apple”。然后点击“submit”按钮或按回车键</li>
+				<li>页面重新加载后，在输入框中输入“ap”，让浏览器自动填充“apple”（或在自动填充的下拉框中选择“apple”）。然后点击“submit”按钮或按回车键。</li>
+			</ol>
+	      </td>
+	    </tr>
+	  </table> -->
+	  </br>
+
+		<form method="get" onsubmit="return checkForChange()">
+		    <p><input type="text" name="field" id="field" value="" onchange="window.changed = true"/></p>
+		    <p><input type="submit" value="Submit"/></p>
+		</form>
+		<pre id="log">Log:</pre>
+
+
+		<script type="text/javascript">
+		// place your test case JS code here
+		// This test case is based on the test case http://data.ici-bas.fr/chromiumissue10879/.
+		/* Script for case 1*/
+		window.changed = false;
+		function checkForChange()
+		{
+		    if (!location.search)
+		        return true;
+		        
+		    if (!window.changed && document.getElementById("field").value != "")
+		        log("FAIL");
+		    else
+		        log("PASS");
+		    return false;
+		}
+
+		function log(msg)
+		{
+		    document.getElementById("log").appendChild(document.createTextNode(msg + "\n"));
+		}
+		/* Script for case 1, end*/
+		</script>
+	</body>
+</html>

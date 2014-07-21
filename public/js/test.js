@@ -27,6 +27,8 @@ var start = function(){
 		new Test(data);
 	}
 };
+
+
 var testAgain = function(){
 	Testers.pop();
 	init();
@@ -105,7 +107,7 @@ function Test(data){
 	this.res = [];
 	this.notes = [];
 	this.counter = 0;
-	this.noteArea = document.getElementById('noteArea');
+	this.noteInp = document.getElementById('note-input');
 	current = this;
 	Testers.push(this);
 	this.go(0);
@@ -151,7 +153,7 @@ Test.prototype.toJSON = function(){
 Test.prototype.next = function(){
 	var c = ++this.counter;
 	if(c<this.cases.length){
-		ifr.src = 'testCases/'+this.cases[c]+'.html';
+		this.refresh();
 	}else{
 		this.report();
 	}
@@ -178,21 +180,79 @@ Test.prototype.fail = function(){
 		this.report();
 	}
 }
+Test.prototype.showNote = function(){
+	this.noteInp.value = this.notes[this.counter] || '';
+	document.getElementById('noteArea').style.bottom = '-2px';
+	document.getElementById('note-input').focus();
+};
+Test.prototype.hideNote = function(){
+	document.getElementById('noteArea').style.bottom = '-62px';
+	this.noteInp.value = "";
+};
 Test.prototype.note = function(){
-	this.notes[this.counter] = this.noteArea.value;
-	this.noteArea.value = "";
+	this.notes[this.counter] = this.noteInp.value;
+	this.hideNote();
 }
 Test.prototype.go = function(ind){
-	ifr.src = 'testCases/'+this.cases[ind]+'.html';
 	this.counter = ind;
-	this.noteArea.value = this.notes[ind] || '';
+	this.refresh();
 	$pre.style.display = 'none';
 	$process.style.display = 'block';
 	$report.style.display = 'none';
 }
+Test.prototype.refresh = function(){
+	var ind = this.counter;
+	var toTestA = document.getElementById('toTest');
+	toTestA.href = 'testCases/'+this.cases[ind];
+	// toTestA.innerHTML = "Click To Test:"+ toTestA.href;
+	ifr.src = 'testCases/'+this.cases[ind];
+}
+
+// handle the descriptions 
+ifr.onload = function(){
+	var pass = ifr.contentDocument.getElementById('pass-desc'),
+		fail = ifr.contentDocument.getElementById('fail-desc'),
+		step = ifr.contentDocument.getElementById('step-desc'),
+		table = document.getElementById('descTable');
+	if(pass){
+		$('.pass-body', table).html(pass.innerHTML).closest('tr').show();
+	}else{
+		$('.pass-body', table).closest('tr').hide();
+	}
+	if(fail){
+		$('.fail-body', table).html(fail.innerHTML).closest('tr').show();
+	}else{
+		$('.fail-body', table).closest('tr').hide();
+	}
+	if(step){
+		$('.step-body', table).html(step.innerHTML).closest('tr').show();
+	}else{
+		$('.step-body', table).closest('tr').hide();
+	}
+	if(!pass && !fail && !step){
+		$('.blank', table).show();
+	}else{
+		$('.blank', table).hide();
+	}
+	var hei = $(table).height() - 10;
+	$('#descWrap').css({top: -hei});
+}
+
+var toggleDesc = function(){
+	var $wrap = $('#descWrap'),
+		top = $wrap.css('top');
+	if(top == '0px'){
+		var hide = $('#descTable').height() - 10;
+		$wrap.animate({top: -hide}, 'fast', 'ease');
+	}else{
+		$wrap.animate({top: 0}, 'fast', 'ease');
+	}
+}
+
+// fetch file names
 $.getJSON('/getFiles',function(data){
 	$.each(data, function(ind, d){
-		Cases.push(d.replace('.html', ''));
+		Cases.push(d);
 	});
 	init();
 })	

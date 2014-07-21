@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Background color change on body with margin</title>
+		<meta name="viewport" content="width=device-width initial-scale=1.0" />
+		<script src="../zepto.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../style.css">
+
+		<style type="text/css">
+		body {
+			margin: 50px 50px 50px 50px;
+			background-color: red;
+		}
+		ol li{
+			margin:5px;
+		}
+		</style>
+		<script>
+		  function start() {
+		    window.setTimeout("document.getElementsByTagName('body')[0].style.backgroundColor='white';", 500); 
+		  }
+		</script>
+
+	</head>
+
+	<body onload='start();'>
+		<div>
+			<!-- place your test case HTML content here -->
+			<h1>Background color change on body with margin</h1>
+			<hr>
+
+			<div class='case'>
+				<div class='describe'>
+					<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>This test verifies that we don't do partial repaint when background-color changes.</p>
+					<p><b>STEPS TO TEST:</b>
+						Scroll to check if the background is white all the way down.
+					</p>
+					<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
+						The background is white all the way
+					</p>
+					<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
+						The background is red sometimes.
+					</p>
+				</div>
+				<div id='content'>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				    Lorem ipsum dolor sit amet<br>
+				  </div>
+			</div><!-- .case end -->
+	</body>
+</html>

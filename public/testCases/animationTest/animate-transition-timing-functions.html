@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Timing Functions for Transitions</title>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <style type="text/css" media="screen">
+      
+      body {
+        margin: 10px;
+        padding: 0;
+      }
+      .container {
+        border: 1px solid #aaa;
+        padding: 6px;
+      }
+      .container div {
+        position: relative;
+        width: 150px;
+        height: 30px;
+        background: #99c;
+        left: 0;
+        -webkit-transition-property: left;
+        -webkit-transition-duration: 5s;
+        margin-bottom: 10px;
+        font-size: 12px;
+
+      }
+      
+      .clicked div {
+        left: 250px;
+      }
+
+      .container .ease {
+        -webkit-transition-timing-function: ease;
+      }
+
+      .container .linear {
+        -webkit-transition-timing-function: linear;
+      }
+
+      .container .ease-in {
+        -webkit-transition-timing-function: ease-in;
+      }
+
+      .container .ease-out {
+        -webkit-transition-timing-function: ease-out;
+      }
+
+      .container .ease-in-out {
+        -webkit-transition-timing-function: ease-in-out;
+      }
+
+      .container .cubic {
+        -webkit-transition-timing-function: cubic-bezier(.42, .0, .58, 1.0)
+      }
+
+      .container .error {
+        -webkit-transition-timing-function: bananas;
+      }
+
+      #endmarker {
+        position: absolute;
+        width: 10px;
+        left: 257px;
+        top: 10px;
+        height: 333px;
+        background-color: red;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div id="desc" style="display:none">
+      <div id="pass-desc">
+        方框点击时，里面的方块会在5s内通过不同的速度同时到达红线处。
+      </div>
+      <div id="fail-desc">
+        与Pass描述不符
+      </div>
+      <div id="step-desc">
+        点击方框内任意位置
+      </div>
+    </div>
+    <!-- <table class="desc-table" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="desc-header"><div class="title">Description</div><span class="fix">Descriptiondede</span></td>
+      <td class="desc-body body-base">Timing functions for transitions</td>
+    </tr>
+    <tr>
+      <td class="pass-header"><div class="title">Pass</div></td>
+      <td class="pass-body body-base">
+        方框点击时，里面的方块会在5s内通过不同的速度同时到达红线处。
+      </td>
+    </tr>
+    <tr>
+      <td class="fail-header"><div class="title">Fail</div></td>
+      <td class="fail-body body-base">与Pass描述不符</td>
+    </tr>
+    <tr>
+      <td class="step-header"><div class="title">Step</div></td>
+      <td class="step-body body-base">
+        点击方框内任意位置
+      </td>
+    </tr>
+  </table>
+  </br> -->
+    <div id="endmarker">
+    </div>
+
+    <div class="container" onclick="this.className = 'container clicked'">
+      
+      <div class="default">
+        Default (should be the same as Ease)
+      </div>
+
+      <div class="ease">
+        Ease (the default ease function)
+      </div>
+
+      <div class="linear">
+        Linear
+      </div>
+
+      <div class="ease-in">
+        Ease In
+      </div>
+
+      <div class="ease-out">
+        Ease Out
+      </div>
+
+      <div class="ease-in-out">
+        Ease In Out
+      </div>
+
+      <div class="cubic">
+        Cubic bezier specified the same as Ease In Out
+      </div>
+
+      <div class="error">
+        Bogus definition, should become default of Ease
+      </div>
+      
+    </div>
+    
+  </body>
+</html>
