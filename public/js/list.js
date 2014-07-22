@@ -15,7 +15,7 @@
 			});
 			if(ids.length){
 				$.ajax({
-					url: '/report',
+					url: '/treport',
 					data: {ids: ids},
 					success: function(res){
 						renderReport(res);

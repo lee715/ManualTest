@@ -22,13 +22,14 @@ html
 			div(class="main" id="testMain" data-role="main")
 				iframe(width="100%" height="100%")
 			div(class="footer" data-role="footer" class="clearfix")
-				a(href="#popupNote" onclick="$('#noteTextarea')[0].value = current.getNote();" data-rel="popup" data-position-to="window" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-info ui-btn ui-btn-icon-left ui-shadow ui-corner-all") NOTE
+				a(id="open-handler" style="float:right;margin-right:10px;background:#32cdfb;" href="" target="_blank" class="ui-icon-navigation ui-btn ui-btn-icon-notext ui-corner-all") OPEN
+				a(href="#popupNote" onclick="$('#noteTextarea')[0].value = current.getNote();" data-rel="popup" data-position-to="window" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-info ui-btn ui-btn-icon-notext ui-corner-all") NOTE
 				a(onclick="current.fail();" style="float:right;margin-right:10px" href="javascript:;" class="ui-btn-b ui-icon-delete ui-btn ui-btn-icon-left ui-shadow ui-corner-all") FAIL
 				a(onclick="current.pass();" style="float:right;margin-right:10px" href="javascript:;" class="ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all") PASS
 			div(data-role="popup" id="popupNote" data-theme="a" class="ui-corner-all")
 				form
 					div(style="padding:10px 20px;")
-						p(style="color: #666;") write your note here
+						p(style="color: #666;") write your note heres
 						textarea(id="noteTextarea" name="note" rows="6" placeholder="note...")
 						a(href="/test" onclick="current.note($('#noteTextarea').val());" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left ui-icon-check") confirm
 			div#desc

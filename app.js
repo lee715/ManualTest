@@ -102,21 +102,30 @@ app.get('/list', function(req, res){
 	});
 });
 
-app.get('/report', function(req, res){
+app.get('/treport', function(req, res){
 	var ids = req.param('ids').join(' '), r = [];
 	Models.TestResult.find({}, function(err, data){
 		var d;
 		while(d = data.pop()){
 			if(ids.indexOf(d.id) != -1) r.push(d);
 		}
-		fs.readdir('./public/testCases', function(err, files){
+		var base = './public/testCases';
+		fs.readdir(base, function(err, files){
 			if(err){
 				console.log(err.message);
 				res.send('fail to read dir /cases');
 			}else{
+				var fr = [], _fs;
+				for(var i=0,l=files.length;i<l;i++){
+					_fs = fs.readdirSync(base+'/'+files[i]);
+					for(var j=0,m=_fs.length;j<m;j++){
+						_fs[j] = files[i]+'/'+_fs[j];
+					}
+					fr = fr.concat( _fs );
+				}
 				var result = {
 					tests: r,
-					cases: files
+					cases: fr
 				};
 				res.json(result);
 			}

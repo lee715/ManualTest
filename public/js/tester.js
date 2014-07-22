@@ -47,7 +47,7 @@ Test.prototype.initIfr = function(){
 Test.prototype.drawReport = function(){
 	var self = this,
 		$report = $('#testReport')[0];
-	var str = '<table cellpadding="0" cellspacing="0" width="100%"><tr class="rep-header"><td>ID</td><td>Case</td><td style="padding: 0 12px;">result</td><td align="center">operation</td><td width="100%">Note</td></tr>';
+	var str = '<table cellpadding="0" cellspacing="0" width="100%"><tr class="rep-header"><td>ID</td><td>Case</td><td style="padding: 0 12px;">result</td><td align="center">operation</td><td width="100%" style="min-width:100px;">Note</td></tr>';
 	str += this.getTrs();
 	str += '</table>';
 	$report.childNodes[0].innerHTML = str;
@@ -62,9 +62,9 @@ Test.prototype.drawReport = function(){
 	});
 };
 Test.prototype.reDirect = function(ind){
-	$.mobile.navigate('/test',{transition:'flip'});
+	$.mobile.navigate('/test');
 };
-Test.prototype.save = function(ind, dom){
+Test.prototype.save = function(dom){
 	$.ajax({
 		url: '/save',
 		data: current.toJSON(),
@@ -81,7 +81,8 @@ Test.prototype.save = function(ind, dom){
 };
 
 Test.prototype.report = function(){
-	$.mobile.navigate('/report',{transition:'flip'});
+	page = 'report';
+	$.mobile.navigate('/report');
 };
 Test.prototype.getTrs = function(noOp){
 	var res = this.res, cases = this.cases, notes = this.notes, str = '';
@@ -92,7 +93,7 @@ Test.prototype.getTrs = function(noOp){
 		str += '<tr><td>'+(ind+1)+'</td><td>'+c+'</td><td align="center" class="'+r.toLowerCase()+'">'+r+'</td>'+op+'<td><input class="note-input" type="text" data-ind="'+ind+'" value="'+(notes[ind]||"")+'" /></td></tr>';
 	});
 	return str;
-}
+};
 Test.prototype.toJSON = function(){
 	var obj = {}, self =this;
 	$.each('plan tester device system results notes'.split(' '), function(ind, key){
@@ -165,5 +166,6 @@ Test.prototype.refresh = function(){
 	//toTestA.href = 'testCases/'+this.cases[ind];
 	// toTestA.innerHTML = "Click To Test:"+ toTestA.href;
 	this.ifr.src = 'testCases/'+this.cases[ind];
+	document.getElementById('open-handler').href = 'testCases/'+this.cases[ind];
 }
 

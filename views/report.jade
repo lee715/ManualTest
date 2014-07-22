@@ -9,9 +9,9 @@ html
 	body
 		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
 			div(class="header" data-role="header") 
-				a(href="javascript:;" onclick="current = null;$.mobile.navigate('/login',{transition:'flip'});" class="ui-btn ui-icon-forward ui-btn-icon-notext ui-corner-all") go on test
+				a(href="javascript:;" onclick="current = null;$.mobile.navigate('/login');" class="ui-btn ui-icon-forward ui-btn-icon-notext ui-corner-all") go on test
 				h1(class="ui-title" role="heading" aria-level="1") TestResults
-				a(href="javascript:;" onclick="current.save();" class="ui-btn ui-icon-cloud ui-btn-icon-notext ui-corner-all") save
+				a(href="javascript:;" onclick="current.save(this);" class="ui-btn ui-icon-cloud ui-btn-icon-notext ui-corner-all") save
 			div(class="main" id="testMain" data-role="main")
 				section#testReport
 					div.results

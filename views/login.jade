@@ -23,7 +23,7 @@ html
 		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
 			div(class="header" data-role="header") 
 				hi(class="ui-title" role="heading") ManualTest
-				a(href="javascript:;" onclick="storeInfo();page='test';$.mobile.navigate('/test',{transition:'flip'});return false;" class="ui-icon-check ui-btn-right ui-btn ui-btn-icon-left ui-shadow ui-corner-all") done
+				a(href="javascript:;" onclick="if(storeInfo()){page='test';$.mobile.navigate('/test');}return false;" class="ui-icon-check ui-btn-right ui-btn ui-btn-icon-left ui-shadow ui-corner-all") done
 			div(class="main" data-role="main")
 				form(id="infoForm" action="/login" method="post")
 					input(type="text" name="tester" placeholder="您的姓名")
@@ -52,13 +52,16 @@ html
 				HEI = $(window).height(),
 				WID = $(window).width();
 			var storeInfo = function(){
+				var  res = true;
 				$('input,select', '#infoForm').each(function(ind, dom){
-					if(dom.name) info[dom.name] = dom.value;
+					if(dom.name && !dom.value){
+						res = false;
+						return false;
+					} 
+					info[dom.name] = dom.value;
 				});
-				return info;
+				return res;
 			};
-			$(window).on('navigate', function(e){
-			});
 			$(document).on('pageinit', function(){
 				// 初始化test页面
 				if(page == 'test'){
@@ -78,12 +81,20 @@ html
 							new Test(opts);
 						});
 					}
-					
+					$('.main').height(HEI - 154);
 				}else if(page == 'report'){
 					current.drawReport();
 				}
-				$('.main').height(HEI - 154).width(WID - 60);
-			})
+				//.width(WID - 60)
+			});
+			
+			$(document).on('scrollstop', function(e){
+				var top = $(this).scrollTop();
+				$('.footer')[0].style.bottom = -top + 'px';
+			});
+			
+			
+
 
 				
 

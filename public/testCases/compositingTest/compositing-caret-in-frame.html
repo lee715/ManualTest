@@ -10,7 +10,7 @@
 		<title>Caret tests</title>
 		<meta name="viewport" content="width=device-width initial-scale=1.0" />
 		<script src="../zepto.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../style.css">
+		<link rel="stylesheet" type="text/css" href="../base.css">
 
 		<style type="text/css">
 		ol li{
@@ -26,15 +26,14 @@
 	</head>
 
 	<body>
-		<div class='describe'>
-			<p style="background-color:skyblue; padding:3px;"><span>Decription:</span>caret-in-compositing-frame【3】</p>
-			<p style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-				当编辑下面的段落时，光标应该闪烁.
-			</p>
-			<p style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-				If it doesn't pass, it fails.
-			</p>
-		</div>
-		<iframe src="../resources/editable-compositing-subframe.html" scrolling="no"></iframe>
+		<div id="desc" style="display:none">
+	      <div id="pass-desc">
+	        当编辑下面的段落时，光标应该闪烁.
+	      </div>
+	      <div id="fail-desc">
+	        If it doesn't pass, it fails.
+	      </div>
+	    </div>
+		<iframe src="../../resources/editable-compositing-subframe.html" scrolling="no"></iframe>
 	</body>
 </html>
