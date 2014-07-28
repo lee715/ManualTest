@@ -2,23 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG IDs:</b></p>
-<a href="rdar://4233844">4233844</a> in some cases, HTML href named anchors don't scroll to the right place<br>
-<a href="rdar://problem/4246096">4246096</a> REGRESSION links to named anchors don't scroll to the right place (4825)
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Manually resize window to about 800 x 600.  Click on the links below.
-</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-Page will scroll as indicated.
-</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-Page will NOT scroll, or will not scroll to the position indicated.
-</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            Page will scroll as indicated.
+        </div>
+        <div id="fail-desc">
+            Page will NOT scroll, or will not scroll to the position indicated.
+        </div>
+        <div id="step-desc">
+           Manually resize window to about 800 x 600.  Click on the links below.
+        </div>
+    </div>
 
 <a href="#0">1. Click here.  Page should scroll to TARGET TEXT.</a>
 

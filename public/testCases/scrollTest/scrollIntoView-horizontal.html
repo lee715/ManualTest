@@ -2,20 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID</b> <a href="rdar://problem/3471901">3471901</a> support scrollIntoView method for DOM elements (3474)</p>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Following the numbered steps on each button, click each button to scroll the next button into view.</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-Next button scrolls into view as specified.</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-Next button does not scroll into view, or the button is scrolled to the wrong positon (top, bottom).  
-</p>
-
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            Next button scrolls into view as specified.
+        </div>
+        <div id="fail-desc">
+            Next button does not scroll into view, or the button is scrolled to the wrong positon (top, bottom).
+        </div>
+        <div id="step-desc">
+            Following the numbered steps on each button, click each button to scroll the next button into view.
+        </div>
+    </div>
 
 <input id="topleft" type="button" value="STEP 1: click to horizontally scroll STEP 2 into view" onclick="document.getElementById('topright').scrollIntoView(false);">
 

@@ -2,6 +2,7 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
     <script>
         function init () {
             document.getElementById("test").focus();
@@ -15,21 +16,17 @@
     </script>
 </head>
 <body onload="init();">
-<p><b>BUG ID:</b> <a href="rdar://problem/4181058">4181058</a> 8C45: Safari repro crash with document.write (WebCore::Node::dispatchEvent)</p>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-<ul>
-<li> Press the Tab key.  This will remove focus from the text field, and should call document.write without crashing.
-</ul>
-</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-You should see text that says "Test has passed".
-</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-If the test fails, the browser will crash.
-</p>
+    <div id="desc" style="display:none">
+        <div id="pass-desc">
+            You should see text that says "Test has passed".
+        </div>
+        <div id="fail-desc">
+            If the test fails, the browser will crash.
+        </div>
+        <div id="step-desc">
+           Press the Tab key.  This will remove focus from the text field, and should call document.write without crashing.
+        </div>
+    </div>
 
 <input type="text" id="test" onblur="foo();" />  
 

@@ -2,19 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID</b> <a href="rdar://problem/3471901">3471901</a> support scrollIntoView method for DOM elements (3474)</p>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Following the numbered steps, click each button to scroll the specified colored box into view.</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-A colored box should scroll into view after clicking each button.  The text on the button specifies the expected position (top, bottom) of the box scrolled into view.</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-Colored box does not scroll into view, or the box is scrolled to the wrong positon (top, bottom).  
-</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            A colored box should scroll into view after clicking each button.  The text on the button specifies the expected position (top, bottom) of the box scrolled into view.
+        </div>
+        <div id="fail-desc">
+            Colored box does not scroll into view, or the box is scrolled to the wrong positon (top, bottom). 
+        </div>
+        <div id="step-desc">
+            Following the numbered steps, click each button to scroll the specified colored box into view.
+        </div>
+    </div>
 
 <div id="purplebox" style="background-color:purple; width: 300px; height: 100px;">
 	<input type="button" value="STEP 1: click to scroll yellow box to BOTTOM of view" onclick="document.getElementById('yellowbox').scrollIntoView(false);">

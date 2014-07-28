@@ -54,10 +54,10 @@ html
 			var storeInfo = function(){
 				var  res = true;
 				$('input,select', '#infoForm').each(function(ind, dom){
-					if(dom.name && !dom.value){
-						res = false;
-						return false;
-					} 
+					//- if(dom.name && !dom.value){
+					//- 	res = false;
+					//- 	return false;
+					//- } 
 					info[dom.name] = dom.value;
 				});
 				return res;
@@ -90,7 +90,7 @@ html
 			
 			$(document).on('scrollstop', function(e){
 				var top = $(this).scrollTop();
-				$('.footer')[0].style.bottom = -top + 'px';
+				if($('.footer')[0]) $('.footer')[0].style.bottom = -top + 'px';
 			});
 			
 			

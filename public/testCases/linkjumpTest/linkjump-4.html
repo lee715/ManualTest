@@ -2,20 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID:</b> <a href="rdar://problem/4247537">4247537</a> link jumping should scroll to tallest object on line, not first object on line</p>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Manually resize window to about 800 x 600.  Click the links in this document.</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-After clicking a link, the page should always scroll to the top of the green box.
-</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-After clicking a link, page scrolls to some unexpected area.
-</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            After clicking a link, the page should always scroll to the top of the green box.
+        </div>
+        <div id="fail-desc">
+            After clicking a link, page scrolls to some unexpected area.
+        </div>
+        <div id="step-desc">
+           Manually resize window to about 800 x 600.  Click the links in this document.
+        </div>
+    </div>
 
 <div><a href="#foo">1. click to  test</a></div>
 

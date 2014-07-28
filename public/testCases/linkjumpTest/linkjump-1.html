@@ -2,23 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID:</b> <a href="rdar://problem/4304213">4304213</a> sometimes have to click twice to jump to top, on href=""</p>
-<b>As of 01-31-2006, this bug has NOT been fixed.</b>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Click through the numbered links on this page.
-</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-Page will scroll to the top after clicking link #3.  
-</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-Page will scroll to the top after clicking link #3.  Clicking this link twice might take you to the top of the page (but that is the bug). 
-
-</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            Page will scroll to the top after clicking link #3.
+        </div>
+        <div id="fail-desc">
+            Page will scroll to the top after clicking link #3.  Clicking this link twice might take you to the top of the page (but that is the bug). 
+        </div>
+        <div id="step-desc">
+           Click through the numbered links on this page.
+        </div>
+    </div>
 
 <div><a href="#foo">1. click here</a></div>
 

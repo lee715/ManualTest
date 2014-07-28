@@ -2,27 +2,26 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID:</b> <a href="rdar://problem/4361048">4361048</a> Glendale Regression: Seed: scrolling with scrollwheel, trackpad doesn't work for nested framesets at gmail.com</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            The contents of the frame each frame should scroll.
+        </div>
+        <div id="fail-desc">
+            The contents of each frame do NOT scroll.
+        </div>
+        <div id="step-desc">
+            <ol>
+				<li>Place your mouse cursor over the leftmost frame below.</li>
+				<li>Try to scroll the contents of the frame up and down my using your mouse's scrollwheel.</li>
+				<li>Repeat for the other two frames.</li>
+			</ol>
+        </div>
+    </div>
 
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-<ol>
-	<li>Place your mouse cursor over the leftmost frame below.</li>
-	<li>Try to scroll the contents of the frame up and down my using your mouse's scrollwheel.</li>
-	<li>Repeat for the other two frames.</li>
-</ol>
-
-</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-The contents of the frame each frame should scroll.</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-The contents of each frame do NOT scroll.
-</p>
-
-<iframe width="800" height="500" src="resources/nestedframesets.html">
+<iframe width="800" height="500" src="../../resources/nestedframesets.html">
 
 </body>
 </html>

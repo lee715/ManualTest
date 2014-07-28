@@ -2,20 +2,20 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
 </head>
 <body>
-<p><b>BUG ID:</b> <a href="http://bugs.webkit.org/show_bug.cgi?id=6916">Bugzilla 6916</a> REGRESSION: URLs with named anchors in a page don't jump to proper location in document</p>
-
-<p id="test" style="background-color:skyblue; padding:3px;"><b>STEPS TO TEST:</b> 
-Manually resize window to about 800 x 600. Click the link below.</p>
-
-<p id="success" style="background-color:palegreen; padding:3px;"><b>TEST PASS:</b> 
-Page will scroll down to the dashed line.
-</p>
-
-<p id="failure" style="background-color:#FF3300; padding:3px;"><b>TEST FAIL:</b>  
-Page will scroll to the bottom, or to some other unexpected area of the page.
-</p>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            Page will scroll down to the dashed line.
+        </div>
+        <div id="fail-desc">
+            Page will scroll to the bottom, or to some other unexpected area of the page.
+        </div>
+        <div id="step-desc">
+           Manually resize window to about 800 x 600. Click the link below.
+        </div>
+    </div>
 
 <div>Clicking <a href="#link">link</a> should move page down to the dashes, not to the end of the page.</div>
 <div>blah blah blah</div>

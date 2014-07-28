@@ -62,19 +62,23 @@ Test.prototype.drawReport = function(){
 	});
 };
 Test.prototype.reDirect = function(ind){
+	page = 'test';
 	$.mobile.navigate('/test');
 };
 Test.prototype.save = function(dom){
+	if(this.saving || this.saved) return;
+	this.saving = true;
 	$.ajax({
 		url: '/save',
 		data: current.toJSON(),
 		type: 'GET',
 		success: function(data){
-			console.log(data);
+			this.saved = true;
 			$(dom).removeClass('ui-icon-cloud').addClass('ui-icon-check');
 			dom.onclick = '';
 		},
 		error: function(err){
+			this.saving = false;
 			console.log(err);
 		}
 	})
