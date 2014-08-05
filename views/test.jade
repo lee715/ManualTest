@@ -4,6 +4,11 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width initial-scale=1.0")
 		title 测试结果集
+		link(rel="stylesheet" type="text/css" href="css/themes/mytheme.min.css")
+		link(rel="stylesheet" type="text/css" href="css/themes/jquery.mobile.icons.min.css")
+		link(rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.3.min.css")
+		link(rel="stylesheet" type="text/css" href="css/base.css")
+		link(rel="stylesheet" type="text/css" href="css/test.css")
 		style.
 			.clearfix:after {
 				visibility: hidden;
@@ -16,22 +21,28 @@ html
 	body
 		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
 			div(class="header" data-role="header") 
-				a(href="javascript:;" onclick="current.back();" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all") back
+				a(href="/unfinishedtests" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all") back
 				h1(class="ui-title" role="heading" aria-level="1") ManualTest
 				a(href="javascript:;" onclick="document.getElementById('desc').style.display = 'block';return false;" class="ui-btn ui-icon-bullets ui-btn-icon-notext ui-corner-all") info
 			div(class="main" id="testMain" data-role="main")
 				iframe(width="100%" height="100%")
 			div(class="footer" data-role="footer" class="clearfix")
-				a(id="open-handler" style="float:right;margin-right:10px;background:#32cdfb;" href="" target="_blank" class="ui-icon-navigation ui-btn ui-btn-icon-notext ui-corner-all") OPEN
-				a(href="#popupNote" onclick="$('#noteTextarea')[0].value = current.getNote();" data-rel="popup" data-position-to="window" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-info ui-btn ui-btn-icon-notext ui-corner-all") NOTE
-				a(onclick="current.fail();" style="float:right;margin-right:10px" href="javascript:;" class="ui-btn-b ui-icon-delete ui-btn ui-btn-icon-left ui-shadow ui-corner-all") FAIL
-				a(onclick="current.pass();" style="float:right;margin-right:10px" href="javascript:;" class="ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all") PASS
+				div(style="height:50px;")
+					a(onclick="Wgs.footer.slide(this);" style="float:left;margin-left:10px;background:#676360;border:none;" href="javascript:;" class="ui-icon-plus ui-btn ui-btn-icon-notext ui-corner-all") More
+					a(id="open-handler" style="float:right;margin-right:10px;background:#32cdfb;" href="" target="_blank" class="ui-icon-navigation ui-btn ui-btn-icon-notext ui-corner-all") OPEN
+					a(onclick="current.fail();" style="float:right;margin-right:10px" href="javascript:;" class="ui-btn-b ui-icon-delete ui-btn ui-btn-icon-left ui-shadow ui-corner-all") FAIL
+					a(onclick="current.pass();" style="float:right;margin-right:10px" href="javascript:;" class="ui-icon-check ui-btn ui-btn-icon-left ui-shadow ui-corner-all") PASS
+				div
+					a(onclick="current.skip();" href="javascript:;" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-action ui-btn ui-btn-icon-left ui-corner-all") SKIP
+					a(onclick="current.block();" href="javascript:;" style="float:right;margin-right:10px" class="ui-btn-c ui-icon-alert ui-btn ui-btn-icon-left ui-corner-all") BlOCK
+					a(href="#popupNote" onclick="$('#noteTextarea')[0].value = current.getNote();" data-rel="popup" data-position-to="window" style="float:right;margin-right:10px" class="ui-btn-icon-left ui-btn-c ui-icon-edit ui-btn ui-corner-all") NOTE
+					a(href="javascript:;" onclick="current.back();" style="float:left;margin-left:10px;" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-corner-all") back
 			div(data-role="popup" id="popupNote" data-theme="a" class="ui-corner-all")
 				form
 					div(style="padding:10px 20px;")
 						p(style="color: #666;") write your note heres
 						textarea(id="noteTextarea" name="note" rows="6" placeholder="note...")
-						a(href="/test" onclick="current.note($('#noteTextarea').val());" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left ui-icon-check") confirm
+						a(href="javascript:;" onclick="current.note($('#noteTextarea').val());this.href = '/test'+location.search;" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left ui-icon-check") confirm
 			div#desc
 				div(data-role="header" style="border:none;border-bottom: 1px solid rgba(0,0,0,.4)")
 					h1(class="ui-title" role="heading" aria-level="1") Description
@@ -52,3 +63,7 @@ html
 							td(class="step-body body-base")
 						tr.blank
 							td(width="100%" align="center") this case has no description.
+		script(src="js/jquery-1.8.3.min.js")
+		script(src="js/jquery.mobile-1.3.2.min.js")
+		script(src="js/tester.js")
+		script(src="js/route.js")

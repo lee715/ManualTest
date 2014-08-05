@@ -1,0 +1,14 @@
+<body>
+<a href="redir.php">Click me.<a/> The resulting request (as dumped on screen) should not have a Referer header.
+<script>
+if (window.testRunner) {
+    testRunner.dumpAsText();
+    testRunner.waitUntilDone();
+}
+
+if (location.protocol != "https:")
+    location = "https://172.16.2.243:3011/ssl/referer-303.html";
+else
+    location = "/referer-303-redir";
+</script>
+</body>

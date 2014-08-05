@@ -2,12 +2,34 @@ doctype HTML
 html
 	head
 		meta(charset="utf-8")
-		title 测试计划集
+		meta(name="viewport" content="width=device-width initial-scale=1.0")
+		title ManualTest
+		link(rel="stylesheet" type="text/css" href="css/themes/mytheme.min.css")
+		link(rel="stylesheet" type="text/css" href="css/themes/jquery.mobile.icons.min.css")
+		link(rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.3.min.css")
+		link(rel="stylesheet" type="text/css" href="css/base.css")
+		link(rel="stylesheet" type="text/css" href="css/test.css")
 		style.
-			body{
-				font-family: Helvetica Neue, Hiragino Sans GB, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
-			}
-	body
-		ul
-			each plan in plans
-				li= plan.content
+			.clearfix:after {
+				visibility: hidden;
+				display: block;
+				font-size: 0;
+				content: " ";
+				clear: both;
+				height: 0;
+				}
+	body(class="ui-nosvg")
+		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
+			div(class="header" data-role="header") 
+				a(href="javascript:;" onclick="history.back();" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all") back
+				hi(class="ui-title" role="heading") Plans
+			div(class="main" data-role="main")
+				ul
+					each plan in plans
+						li= plan.content
+		script(src="js/jquery-1.8.3.min.js")
+		script(src="js/jquery.mobile-1.3.2.min.js")
+		script(src="js/tester.js")
+		script(src="js/route.js")
+				
+		

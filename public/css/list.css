@@ -111,9 +111,14 @@ td{
 	font-weight: bold;
 }
 
-.pass {
+.pass, .skip {
 	/*color: green;*/
 	font-size: 12px;
+}
+
+.block {
+	font-size: 12px;
+	color: #fed174;
 }
 
 .fail {

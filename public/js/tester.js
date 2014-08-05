@@ -1,48 +1,60 @@
 
+var push = function(al, item){
+	if(!item.slice) item = [item];
+	return Array.prototype.push.apply(al, item);
+}
 
 function Test(data){
 	this.cases = data.cases;
-	this.plan = data.plan;
-	this.tester = data.tester;
-	this.device = data.device;
-	this.system = data.system;
-	this.res = [];
-	this.notes = [];
-	this.counter = 0;
+	if(typeof data.results == 'string'){
+		this.res = JSON.parse(data.results);
+	}else{
+		this.res = data.results || {};
+	}
+	if(typeof data.notes == 'string'){
+		this.notes = JSON.parse(data.notes);
+	}else{
+		this.notes = data.notes || {};
+	}
+	this.counter = data.current || 0;
+	this.id = data.id || data._id;
 	current = this;
-	this.initIfr();
-	// Testers.push(this);
-	this.go(0);
+	if(!data.slice){
+		this.initIfr();
+		this.go(this.counter);
+	}
 }
 Test.prototype.initIfr = function(){
 	var ifr = this.ifr = document.getElementsByTagName('iframe')[0];
 	// handle the descriptions 
-	ifr.onload = function(){
-		var pass = ifr.contentDocument.getElementById('pass-desc'),
-			fail = ifr.contentDocument.getElementById('fail-desc'),
-			step = ifr.contentDocument.getElementById('step-desc'),
-			table = document.getElementById('descTable');
-		if(pass){
-			$('.pass-body', table).html(pass.innerHTML).closest('tr').show();
-		}else{
-			$('.pass-body', table).closest('tr').hide();
+	if(ifr){
+		ifr.onload = function(){
+			var pass = ifr.contentDocument.getElementById('pass-desc'),
+				fail = ifr.contentDocument.getElementById('fail-desc'),
+				step = ifr.contentDocument.getElementById('step-desc'),
+				table = document.getElementById('descTable');
+			if(pass){
+				$('.pass-body', table).html(pass.innerHTML).closest('tr').show();
+			}else{
+				$('.pass-body', table).closest('tr').hide();
+			}
+			if(fail){
+				$('.fail-body', table).html(fail.innerHTML).closest('tr').show();
+			}else{
+				$('.fail-body', table).closest('tr').hide();
+			}
+			if(step){
+				$('.step-body', table).html(step.innerHTML).closest('tr').show();
+			}else{
+				$('.step-body', table).closest('tr').hide();
+			}
+			if(!pass && !fail && !step){
+				$('.blank', table).show();
+			}else{
+				$('.blank', table).hide();
+			}
 		}
-		if(fail){
-			$('.fail-body', table).html(fail.innerHTML).closest('tr').show();
-		}else{
-			$('.fail-body', table).closest('tr').hide();
-		}
-		if(step){
-			$('.step-body', table).html(step.innerHTML).closest('tr').show();
-		}else{
-			$('.step-body', table).closest('tr').hide();
-		}
-		if(!pass && !fail && !step){
-			$('.blank', table).show();
-		}else{
-			$('.blank', table).hide();
-		}
-	}
+	} 
 }
 Test.prototype.drawReport = function(){
 	var self = this,
@@ -53,51 +65,98 @@ Test.prototype.drawReport = function(){
 	$report.childNodes[0].innerHTML = str;
 	$('.retest', $report).click(function(e){
 		var i = $(e.currentTarget).data('ind');
-		current.counter = i;
+		self.counter = i;
 		self.reDirect(i);
 	});
 	$('.note-input').blur(function(){
 		var ind = $(this).data('ind');
-		current.notes[ind] = this.value;
+		self.notes[self.getCase(ind)] = this.value;
+		self.dbSave(+ind);
 	});
 };
 Test.prototype.reDirect = function(ind){
-	page = 'test';
-	$.mobile.navigate('/test');
+	$.mobile.navigate('/test?id='+this.id);
 };
-Test.prototype.save = function(dom){
-	if(this.saving || this.saved) return;
-	this.saving = true;
+
+Test.prototype.report = function(){
+	$.mobile.navigate('/report?id='+this.id);
+};
+
+Test.prototype.getTrs = function(noOp){
+	var res = this.res, cases = this.cases, notes = this.notes, str = '', self = this;
+	$.each(cases, function(ind, cn){
+		var map = 'FAIL PASS BLOCK SKIP'.split(' ');
+		var c = cn.split('/')[1].split('.')[0];
+		var unitCN = self.getCase(ind);
+		var r = res[unitCN] === undefined?'/': map[res[unitCN]]||'/';
+		var note = notes[unitCN] || '';
+		var op = noOp?'': '<td align="center" class="retest" data-ind="'+ind+'"><a href="javascript:;" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-refresh ui-btn-a"></a></td>'; 
+		str += '<tr><td>'+(ind+1)+'</td><td>'+c+'</td><td align="center" class="'+r.toLowerCase()+'">'+r+'</td>'+op+'<td><input class="note-input" type="text" data-ind="'+ind+'" value="'+(note)+'" /></td></tr>';
+	});
+	return str;
+};
+
+Test.prototype.localSave = function(){
+	var ls = localStorage, ts = ls.getItem('TS');
+	if(ts){
+		ts = JSON.parse(ts);
+	}else{
+		ts = {};
+		push(ts, []);
+	}
+	var id = this.localId;
+	if(id){
+		ts[id] = this;
+	}else{
+		this.localId = push(ts, this);
+	}
+	ls.setItem('TS', JSON.stringify(ts));
+};
+
+Test.prototype.save = function(el){
 	$.ajax({
-		url: '/save',
-		data: current.toJSON(),
-		type: 'GET',
-		success: function(data){
-			this.saved = true;
-			$(dom).removeClass('ui-icon-cloud').addClass('ui-icon-check');
-			dom.onclick = '';
-		},
-		error: function(err){
-			this.saving = false;
-			console.log(err);
+		url: '/test/submit',
+		data: {id: this.id},
+		success: function(res){
+			if(res.status == 'success'){
+				$(el).removeClass('ui-icon-cloud').addClass('ui-icon-check');
+			}
 		}
 	})
 };
 
-Test.prototype.report = function(){
-	page = 'report';
-	$.mobile.navigate('/report');
+Test.prototype.dbSave = function(ind, callback){
+	if(arguments.length == 1){
+		if(typeof ind == 'function'){
+			callback = ind;
+			ind = undefined;
+		}else if(typeof ind !== 'number'){
+			ind = undefined;
+			callback = undefined;
+		}
+	}
+	$.ajax({
+		url: '/test/update',
+		data: this.updateData(ind),
+		type: 'GET',
+		success: function(){
+			callback && callback()
+		}
+	})
 };
-Test.prototype.getTrs = function(noOp){
-	var res = this.res, cases = this.cases, notes = this.notes, str = '';
-	$.each(res, function(ind, d){
-		var r = d?'PASS':'FAIL';
-		var c = cases[ind].split('/')[1].split('.')[0];
-		var op = noOp?'': '<td align="center" class="retest" data-ind="'+ind+'"><a href="javascript:;" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-refresh ui-btn-a"></a></td>'; 
-		str += '<tr><td>'+(ind+1)+'</td><td>'+c+'</td><td align="center" class="'+r.toLowerCase()+'">'+r+'</td>'+op+'<td><input class="note-input" type="text" data-ind="'+ind+'" value="'+(notes[ind]||"")+'" /></td></tr>';
-	});
-	return str;
-};
+
+Test.prototype.updateData = function(ind){
+	var caseName = this.getCase(ind),
+		data = {
+			key: caseName,
+			result: this.res[caseName],
+			note: this.notes[caseName],
+			id: this.id,
+			current: this.counter
+		}
+	return data;
+}
+
 Test.prototype.toJSON = function(){
 	var obj = {}, self =this;
 	$.each('plan tester device system results notes'.split(' '), function(ind, key){
@@ -109,7 +168,15 @@ Test.prototype.toJSON = function(){
 	})
 	return obj;
 }
-Test.prototype.next = function(){
+Test.prototype.getCase = function(ind){
+	var ca = this.cases[ind == undefined?this.counter:ind];
+	ca = ca.split('/')[1].split('.')[0].replace(/-[a-zA-Z]{1}/g, function(m){
+		return m.charAt(1).toUpperCase();
+	});
+	return ca;
+}
+
+Test.prototype.next = function(status){
 	var c = ++this.counter;
 	if(c<this.cases.length){
 		this.refresh();
@@ -123,26 +190,32 @@ Test.prototype.back = function(){
 	if(~c){
 		this.go(c);
 	}else{
-		location.href = '/login';
+		location.href = '/unfinishedtests';
 	}
+}
+Test.prototype.state = function(status){
+	var c = this.counter, self = this;
+	this.res[this.getCase()] = status;
+	if(this._end){
+		this.dbSave(function(){
+			self.report();
+		});
+	}else{
+		this.dbSave();
+		this.next(status);
+	}
+}
+Test.prototype.skip = function(){
+	this.state(3);
+}
+Test.prototype.block = function(){
+	this.state(2);
 }
 Test.prototype.pass = function(){
-	var c = this.counter;
-	this.res[c] = 1;
-	if(this._end){
-		this.report();
-	}else{
-		this.next();
-	}
+	this.state(1);
 }
 Test.prototype.fail = function(){
-	var c = this.counter;
-	this.res[c] = 0;
-	if(this._end){
-		this.report();
-	}else{
-		this.next();
-	}
+	this.state(0);
 }
 Test.prototype.showNote = function(){
 	this.noteInp.value = this.notes[this.counter] || '';
@@ -154,11 +227,10 @@ Test.prototype.hideNote = function(){
 	this.noteInp.value = "";
 };
 Test.prototype.note = function(val){
-	this.notes[this.counter] = val;
-	//this.hideNote();
+	this.notes[this.getCase()] = val;
 }
-Test.prototype.getNote = function(ind){
-	return this.notes[ind || this.counter] || '';
+Test.prototype.getNote = function(){
+	return this.notes[this.getCase()] || '';
 }
 Test.prototype.go = function(ind){
 	this.counter = ind;
@@ -172,4 +244,7 @@ Test.prototype.refresh = function(){
 	this.ifr.src = 'testCases/'+this.cases[ind];
 	document.getElementById('open-handler').href = 'testCases/'+this.cases[ind];
 }
-
+Test.prototype.distroy = function(ind){
+	$(this.ifr).remove()
+	current = null;
+}

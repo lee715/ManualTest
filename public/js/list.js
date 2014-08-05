@@ -1,6 +1,13 @@
 
 
 (function(){
+	var getCase = function(ind, cases){
+		var ca = cases[ind];
+		ca = ca.split('/')[1].split('.')[0].replace(/-[a-zA-Z]{1}/g, function(m){
+			return m.charAt(1).toUpperCase();
+		});
+		return ca;
+	}
 	$('.item').click(function(){
 		$(this).find('.checkbox').toggleClass('checked');
 	});
@@ -88,8 +95,14 @@
 			tStr += '<td>'+ca.replace('.html', '')+'</td>';
 			$.each(systems, function(i, sys){
 				$.each(dataBySys[sys.trim()], function(index, item){
-					var re = +item.results[ind]?'PASS':'FAIL';
-					tStr += '<td class="'+re.toLowerCase()+'">'+ re + (item.notes[ind]?'<a href="javascript:;" class="note" data-note="'+item.notes[ind]+'"></a>':'') + '</td>';
+					if(typeof item.results == 'string') item.results = JSON.parse(item.results);
+					if(typeof item.notes == 'string') item.notes = JSON.parse(item.notes);
+					var caseName = getCase(ind, cases);
+					var map = 'FAIL PASS BLOCK SKIP'.split(' ');
+					var re = map[item.results[caseName]] || '/';
+					var note = item.notes[caseName];
+					var noteStr = note?'<a href="javascript:;" class="note" data-note="'+note+'"></a>':'';
+					tStr += '<td class="'+re.toLowerCase()+'">'+ re + noteStr + '</td>';
 				})
 			});
 			tStr += '</tr><tr>';
@@ -97,6 +110,7 @@
 
 		tStr += '</tr></table>';
 		document.body.innerHTML = tStr;
+		// note 
 		$('.note').click(function(e){
 			var offset = $(this).offset();
 			var $div = $('<div>'+$(this).data('note')+'</div>');

@@ -6,9 +6,11 @@ var TestResultSchema = new Schema({
 	device: String,
 	system: String,
 	time: {type: Date, default: Date.now},
-	notes: [],
-	results: [],
-	plan: String
+	notes: {type: String, default: '{}'},
+	results: {type: String, default: '{}'},
+	plan: String,
+	submited: {type: Boolean, default: false},
+	current: {type:Number, default: 0}
 });
 
 mongoose.model('TestResult', TestResultSchema);

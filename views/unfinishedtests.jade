@@ -1,0 +1,51 @@
+doctype HTML
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width initial-scale=1.0")
+		title 测试结果集
+		link(rel="stylesheet" type="text/css" href="css/themes/mytheme.min.css")
+		link(rel="stylesheet" type="text/css" href="css/themes/jquery.mobile.icons.min.css")
+		link(rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.3.min.css")
+		link(rel="stylesheet" type="text/css" href="css/base.css")
+		link(rel="stylesheet" type="text/css" href="css/test.css")
+		style.
+			.clearfix:after {
+				visibility: hidden;
+				display: block;
+				font-size: 0;
+				content: " ";
+				clear: both;
+				height: 0;
+				}
+		script(src="js/jquery-1.8.3.min.js")
+	body(class="ui-nosvg")
+		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
+			div(class="header" data-role="header") 
+				if level>=3
+					a(href="/index" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all") back
+				else
+					a(href="javascript:;" onclick="Wgs.logout();" class="ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all") back
+				hi(class="ui-title" role="heading") Tests Board
+				a(href="/newtest" class="ui-btn-right ui-btn ui-shadow ui-corner-all") New Test
+			div(class="main" data-role="main")
+				each ut in uts
+					a.test-item(href="/test?id="+ut._id style="color:#666;")
+						div.delete-handler(href="javascript:;" data-id=''+ut._id onclick="Wgs.test.delete(this);return false;")
+						p='test in '+ut.time.toLocaleDateString()
+						p
+							span='device: '+ut.device
+							span &nbsp;&nbsp;
+							span='system: '+ut.system
+						div.process(data-process=ut.current)
+		script(src="js/jquery-1.8.3.min.js")
+		script(src="js/jquery.mobile-1.3.2.min.js")
+		script(src="js/tester.js")
+		script(src="js/route.js")
+		
+
+			
+
+
+				
+

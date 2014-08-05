@@ -64,3 +64,22 @@ a {
 	top: 0;
 }
 
+tr.tr-title{
+	background-color: #c7b3ef;
+	color: white;
+	font-weight: bolder;
+}
+
+tr:nth-child(2n){
+	background-color: #f2f2f2;
+}
+
+tr.tr-header{
+	background-color: #a7b3c2;
+	color: white;
+	text-align: center;
+}
+
+tr.tr-footer{
+	background: white;
+}

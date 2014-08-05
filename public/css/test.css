@@ -15,7 +15,8 @@ body{
 }
 
 .footer {
-	bottom: 0;position: fixed;left: 0;border:none;border-top:1px solid rgba(0,0,0,.4);width: 100%;
+	position: fixed;left: 0;border:none;border-top:1px solid rgba(0,0,0,.4);width: 100%;height:100px;
+	-webkit-transition:0.5s ease all;
 }
 
 #desc {
@@ -88,6 +89,9 @@ iframe {
 	/*background-color: green;*/
 	color: green;
 }
+.block {
+	color: #fed174;
+}
 .rep-header {
 	background-color: #a7b3c2 !important;
 	color: white;
@@ -131,4 +135,164 @@ iframe {
 
 body.ui-mobile-viewport {
 	overflow-x: visible;
+}
+
+/*custom select*/
+.select-level{
+	position: relative;
+	height: 32px;
+	width: 48px;
+	border:1px solid #8ab24f;
+	border-radius: 4px;
+}
+.select-level .num-wrap{
+	position: relative;
+	width: 16px;
+	padding: 0 8px;
+	font-size: 24px;
+	height: 32px;
+	color: white;
+	background-color: rgba(158, 204, 100, .4);
+}
+.select-level .icon-wrap{
+	width:16px;
+	height: 32px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #8ab24f;
+	/*border-radius: 0 4px 4px 0;*/
+}
+.select-level .up-icon{
+	background: url('./themes/images/icons-png/carat-u-white.png') no-repeat;
+	background-size: 10px 10px;
+	background-position: 3px 3px;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+}
+
+.select-level .down-icon{
+	background: url('./themes/images/icons-png/carat-d-white.png') no-repeat;
+	background-size: 10px 10px;
+	background-position: 3px 3px;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
+}
+
+/*account*/
+#createArea{
+	height: 52px;
+	border: 1px solid #ccc;
+	margin-bottom: 30px;
+	position: relative;
+}
+#createArea .nameInp{
+	height: 32px;
+	padding: 10px;
+	line-height: 32px;
+	font-size: 24px;
+	color: #999;
+	background: white;
+}
+#createArea .select-level{
+	position: absolute;
+	right: 90px;
+	top: 10px;
+}
+#createArea .createHandler{
+	position: absolute;
+	right: 0;
+	top:0;
+	width: 60px;
+	height: 32px;
+	padding: 10px;
+	background: #9ecc5a;
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+	color: white;
+}
+#createdArea{
+	background: white;
+	border:1px solid #ccc;
+}
+#createdArea .select-level{
+	margin: auto;
+}
+#createdArea .ui-select{
+	display: none;
+}
+
+#createdArea tr{height: 40px;}
+
+#createdArea .levelDiv{
+	background: white;
+	width: 16px;
+	height: 16px;
+	padding: 6px;
+	line-height: 16px;
+	border-radius: 16px;
+	background: #8ab24f;
+	color: white;
+	cursor: pointer;
+}
+
+.test-item {
+	display: block;
+	position: relative;
+	padding: 10px 20px;
+	background: white;
+	color: #666;
+	/* border-left: 6px solid #a3e6f8; */
+	border: none;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+.test-item .process{
+	position: absolute;
+	bottom: 0;
+	height: 2px;
+	left: 0;
+}
+
+.index-a {
+	display: block;
+	padding: 10px 20px;
+	color: white !important;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.account-a {
+	background: #f38283;
+}
+
+.plan-a {
+	background: #c7b3ef;
+}
+
+.test-a {
+	background: #a3e6f8;
+}
+
+.delete-handler {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 48px;
+	height: 48px;
+	background: url('./themes/images/icons-png/delete-white.png') no-repeat;
+	background-size: 24px 24px;
+	background-position: 12px 12px;
+	background-color: #a3e6f8;
 }

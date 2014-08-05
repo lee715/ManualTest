@@ -1,5 +1,9 @@
 var express = require('express');
 var fs = require('fs');
+var https = require('https');
+var cookieParser = require('cookie-parser');
+//var session = require('cookie-session');
+var session = require('express-session');
 
 var app = express();
 
@@ -7,45 +11,63 @@ app.engine('jade', require('jade').__express);
 
 app.use(express.static(__dirname + '/public'));
 
+// app.use(session({
+// 	keys: ['userId', 'level'],
+// 	secureProxy: true
+// }));
+app.use(session({secret: 'keyboard cat'}));
+
 var Models = require('./models/index.js');
 
-app.get('/test', function(req, res){
-	Models.Plan.find({}, function(err, plans){
-		if(err) return res.send(err.message);
-		plans.sort(function(a, b){
-			if(a.time.getTime() < b.time.getTime())
-				return true;
-			else
-				return false;
-		});
-		res.render('test.jade', {plans: plans});
-	});
-});
-
-app.get('/report', function(req,res){
-	res.render('report.jade');
-})
-
-app.get('/login', function(req, res){
-	Models.Plan.find({}, function(err, plans){
-		if(err) return res.send(err.message);
-		plans.sort(function(a, b){
-			if(a.time.getTime() < b.time.getTime())
-				return true;
-			else
-				return false;
-		});
-		res.render('login.jade', {plans: plans});
-	});
-});
+var UserCtl = require('./roots/user.js');
+var PlanCtl = require('./roots/plan.js');
+var TestCtl = require('./roots/test.js');
 
 app.get('/', function(req, res){
 	res.redirect('/login');
 });
 
-app.post('/login', function(req, res){
-	
+app.get('/index', UserCtl.checkLogin, function(req, res){
+	var level = req.session.level;
+	if(level < 3){
+		res.redirect('/unfinishedtests');
+	}else{
+		res.render('index.jade');
+	}
 });
+
+/*** account ***/
+app.get('/login', UserCtl.login);
+app.get('/logout', UserCtl.logout);
+app.get('/loginAjax', UserCtl.loginAjax);
+app.get('/autoLogin', UserCtl.autoLogin);
+app.get('/account/create', UserCtl.create);
+app.get('/account/update', UserCtl.update);
+app.get('/account', UserCtl.checkLogin, UserCtl.checkLevel, UserCtl.account);
+/*** account end ***/
+
+/*** test ***/
+app.get('/unfinishedtests', UserCtl.checkLogin, TestCtl.unfinishedtests);
+app.get('/newtest', UserCtl.checkLogin, TestCtl.newtest);
+app.get('/test/create', TestCtl.create);
+app.get('/test/update', TestCtl.update);
+app.get('/test/submit', TestCtl.submit);
+app.get('/test/get', TestCtl.get);
+app.get('/test/delete', TestCtl.delete);
+app.get('/test', function(req, res){
+	res.render('test.jade');
+});
+/*** test end ***/
+
+/*** plan ***/
+app.get('/plan', PlanCtl.index);
+app.get('/plans', PlanCtl.plans);
+app.get('/plan/create', PlanCtl.create);
+/*** plan end ***/
+
+app.get('/report', function(req,res){
+	res.render('report.jade');
+})
 
 app.get('/getFiles', function(req, res){
 	var base = './public/testCases';
@@ -67,26 +89,8 @@ app.get('/getFiles', function(req, res){
 	});
 })
 
-app.get('/save', function(req, res){
-	var datas = 'plan tester device system results notes'.split(' '),
-		one = new Models.TestResult(), cur;
-	while(cur = datas.shift()){
-		if(!req.param(cur)){
-			return res.send(cur+' is not found');
-		} 
-		one[cur] = req.param(cur);
-	}
-	one.save(function(err, saved){
-		if(err){
-			res.send(err.message);
-		}else{
-			res.send('success');
-		}
-	})
-})
-
 app.get('/list', function(req, res){
-	Models.TestResult.find({}, function(err, data){
+	Models.TestResult.find({submited: true}, function(err, data){
 		data.reverse();
 		if(err) return res.send('error: failed to read TestResult');
 		Models.Plan.find({}, function(err, plans){
@@ -104,7 +108,7 @@ app.get('/list', function(req, res){
 
 app.get('/treport', function(req, res){
 	var ids = req.param('ids').join(' '), r = [];
-	Models.TestResult.find({}, function(err, data){
+	Models.TestResult.find({submited: true}, function(err, data){
 		var d;
 		while(d = data.pop()){
 			if(ids.indexOf(d.id) != -1) r.push(d);
@@ -133,37 +137,38 @@ app.get('/treport', function(req, res){
 	})
 });
 
-app.get('/plan', function(req, res){
-	res.render('plan.jade');
+/*** https test ***/
+app.get('/referer-301-redir', function(req, res){
+	res.statusCode = 301;
+	res.setHeader("Cache-Control", "no-cache,no-store");
+	res.setHeader("Location",'http://172.16.2.243:3000/ssl/resources/no-http-referer.html');
+	res.end();
 });
 
-app.get('/plan/save', function(req, res){
-	var plan = req.param('content');
-	if(plan){
-		var n = new Models.Plan();
-		n.content = plan;
-		n.save(function(err, saved){
-			if(err) return res.send(err.message);
-			res.redirect('/plans');
-		});
-	}else{
-		res.send('error');
-	}
+app.get('/referer-303-redir', function(req, res){
+	res.statusCode = 303;
+	res.setHeader("Cache-Control", "no-cache,no-store");
+	res.setHeader("Location",'http://172.16.2.243:3000/ssl/resources/no-http-referer.html');
+	res.end();
 });
 
-app.get('/plans', function(req, res){
-	Models.Plan.find({}, function(err, plans){
-		if(err) return res.send(err.message);
-		plans.sort(function(a, b){
-			if(a.time.getTime() < b.time.getTime())
-				return true;
-			else
-				return false;
-		});
-		res.render('plans.jade', {plans: plans});
-	});
+app.get('/redirect-ping-to-http', function(req, res){
+	res.statusCode = 303;
+	res.setHeader("Location",'http://172.16.2.243:3000/ping-target-does-not-exist');
+	res.end();
 });
+
+/*** https test end ***/
 
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port);
+});
+
+var options = {
+    key: fs.readFileSync('./privatekey.pem'),
+    cert: fs.readFileSync('./certificate.pem')
+};
+
+https.createServer(options, app).listen(3011, function () {
+    console.log('Https server listening on port ' + 3011);
 });
