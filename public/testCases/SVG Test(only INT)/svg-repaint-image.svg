@@ -68,7 +68,7 @@ function animationStep() {
         <g>
             <rect fill="yellow" stroke="#000000" stroke-width="2" x="60" y="60" width="170" height="170" />
 
-	        <image  id="targetGroup" x="60" y="60" width="170" height="170" xlink:href="resources/3dolph.gif"  />
+	        <image  id="targetGroup" x="60" y="60" width="170" height="170" xlink:href="../../resources/3dolph.gif"  />
         </g>
 
 

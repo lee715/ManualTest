@@ -82,9 +82,9 @@ module.exports = {
 					user.save();
 					userSession(req, user);
 				}else if(user){
-					res.json({status: 'fail',err: 'pass_err'});
+					return res.json({status: 'fail',err: 'pass_err'});
 				}else{ 
-					res.json({status: 'fail',err: 'user_err'});
+					return res.json({status: 'fail',err: 'name_err'});
 				}
 				res.json({
 					data: {

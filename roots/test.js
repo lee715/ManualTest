@@ -39,15 +39,19 @@ var
 			key = req.param('key'),
 			rlt = req.param('result'),
 			note = req.param('note') || '',
-			cur = req.param('current');
+			cur = req.param('current'),
+			submitable = req.param('submitable');
 		TestResult.findOne({_id: id}, function(err, tr){
-			var results = JSON.parse(tr.results);
-			var notes =  JSON.parse(tr.notes);
-			results[key] = rlt;
-			notes[key] = note;
-			tr.current = cur;
-			tr.results = JSON.stringify(results);
-			tr.notes = JSON.stringify(notes);
+			if(key){
+				var results = JSON.parse(tr.results);
+				var notes =  JSON.parse(tr.notes);
+				results[key] = rlt;
+				notes[key] = note;
+				tr.results = JSON.stringify(results);
+				tr.notes = JSON.stringify(notes);
+			}
+			if(cur !== undefined) tr.current = cur;
+			if(submitable !== undefined) tr.submitable = submitable;
 			tr.save(function(err, one){
 				res.send('ok');
 			});

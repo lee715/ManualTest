@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="600px">
-	<g transform="translate(10, 300)">
+	<g transform="translate(10, 50)">
 		<rect fill="red" x="0" y="0" width="100" height="100">
-			<animateTransform attributeName="transform" type="scale" to="5" dur="5s" />
+			<animateTransform attributeName="transform" type="scale" to="2" dur="3s" />
 		</rect>
 	</g>
 </svg>

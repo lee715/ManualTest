@@ -10,6 +10,7 @@ var TestResultSchema = new Schema({
 	results: {type: String, default: '{}'},
 	plan: String,
 	submited: {type: Boolean, default: false},
+	submitable: {type: Boolean, default: false},
 	current: {type:Number, default: 0}
 });
 

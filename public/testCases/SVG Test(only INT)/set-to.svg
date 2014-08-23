@@ -5,6 +5,9 @@
     <set attributeName='fill' to='green' dur='3s' />
   </rect>
   <text x='10' y='120'>
-    There should be a 100x100 green rect at 0,0.
+    There should be a 100x100 
   </text>  
+  <text x='10' y='140'>
+  green rect at 0,0.
+  </text>
 </svg>

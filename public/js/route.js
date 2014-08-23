@@ -282,10 +282,9 @@ var current;
 				user.autoLogin();
 				$('.footer').css({'top': HEI - 50});
 				$('.main').height(HEI - 154);
-				var id = location.search.slice(1).split('=')[1];
+				var id = location.search.slice(1).split('&')[0].split('=')[1];
 				if(current && current.id == id){
-					current.initIfr();
-					current.go(current.counter);
+					current.start();
 				}else{
 					current && current.distroy();
 					$.ajax({

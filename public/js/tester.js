@@ -18,12 +18,22 @@ function Test(data){
 	}
 	this.counter = data.current || 0;
 	this.id = data.id || data._id;
+	this.submited = data.submited;
+	this.submitable = data.submitable;
 	current = this;
 	if(!data.slice){
+		this.start();
+	}
+};
+Test.prototype.start = function(){
+	var isRedo = ~location.search.slice(1).indexOf('redo=1');
+	if(this.submitable && !isRedo){
+		this.report();
+	}else{
 		this.initIfr();
 		this.go(this.counter);
 	}
-}
+};
 Test.prototype.initIfr = function(){
 	var ifr = this.ifr = document.getElementsByTagName('iframe')[0];
 	// handle the descriptions 
@@ -75,7 +85,7 @@ Test.prototype.drawReport = function(){
 	});
 };
 Test.prototype.reDirect = function(ind){
-	$.mobile.navigate('/test?id='+this.id);
+	$.mobile.navigate('/test?id='+this.id+'&redo=1');
 };
 
 Test.prototype.report = function(){
@@ -152,9 +162,25 @@ Test.prototype.updateData = function(ind){
 			result: this.res[caseName],
 			note: this.notes[caseName],
 			id: this.id,
-			current: this.counter
+			current: this.counter,
+			submitable: this.submitable
 		}
 	return data;
+}
+
+Test.prototype.submitableAjax = function(callback){
+	var data = {
+			id: this.id,
+			submitable: true
+		}
+	$.ajax({
+		url: '/test/update',
+		data: data,
+		type: 'GET',
+		success: function(){
+			callback && callback();
+		}
+	})
 }
 
 Test.prototype.toJSON = function(){
@@ -181,8 +207,11 @@ Test.prototype.next = function(status){
 	if(c<this.cases.length){
 		this.refresh();
 	}else{
-		this._end = true;
-		this.report();
+		var self = this;
+		this.submitableAjax(function(){
+			self.submitable = true;
+			self.report();
+		});
 	}
 }
 Test.prototype.back = function(){
@@ -196,7 +225,7 @@ Test.prototype.back = function(){
 Test.prototype.state = function(status){
 	var c = this.counter, self = this;
 	this.res[this.getCase()] = status;
-	if(this._end){
+	if(this.submitable){
 		this.dbSave(function(){
 			self.report();
 		});

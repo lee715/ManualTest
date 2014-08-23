@@ -4,7 +4,7 @@
 <p>This tests selectionStart is updated properly when inserting LF into textarea. To test, press Enter several times inside textarea and click the log button. This bug does not reproduce when new lines are added by execCommand or eventSender.</p>
 <textarea cols="20" rows="20"></textarea>
 <button id="button" onclick="verify()">verify</button>
-<div id="console"></div>
+<div id="console" style="height:40px;"></div>
 <script>
 
 function verify() {
