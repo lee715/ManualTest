@@ -158,7 +158,24 @@ app.get('/redirect-ping-to-http', function(req, res){
 	res.end();
 });
 
+var exec = require('child_process').exec;
+app.get('/utest', function(req, res){
+	var command = 'python E:\\lilei\\run_layout_tests.py --refresh-test-list fast/animation';
+	exec(command, function(){
+		var pass = fs.readFileSync('layout-test-results/layout_tests_passed.txt', 'utf8');
+		res.send(pass);
+	});
+}); 
+
 /*** https test end ***/
+
+// test page
+app.get('/test', function(req, res){
+	res.render('custest.jade');
+});
+app.get('/testAjax', function(req, res){
+	res.send('ok');
+});
 
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port);
