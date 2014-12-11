@@ -3,10 +3,7 @@ html
 	head
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width initial-scale=1.0")
-		title 测试结果集
-		link(rel="stylesheet" type="text/css" href="css/themes/mytheme.min.css")
-		link(rel="stylesheet" type="text/css" href="css/themes/jquery.mobile.icons.min.css")
-		link(rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.3.min.css")
+		title 测试集
 		link(rel="stylesheet" type="text/css" href="css/base.css")
 		link(rel="stylesheet" type="text/css" href="css/test.css")
 		style.
@@ -17,19 +14,66 @@ html
 				content: " ";
 				clear: both;
 				height: 0;
-				}
+			}
+			#saveResults {
+				position: absolute;
+				top: 20px;
+				left: 10%;
+				width: 80%;
+				padding: 10px;
+				box-shadow: 0 0 10px 4px rgba(0, 0, 0, .04);
+				background-color: white;
+				display:none;
+			}
+			.close {
+				position: absolute;
+				width: 32px;
+				height: 32px;
+				border-radius: 16px;
+				top: -10px;
+				right: -10px;
+				background-color: rgb(243, 130, 131);
+				background-repeat: no-repeat;
+				background-position: 8px 8px;
+				background-size: 16px 16px;
+				z-index: 99;
+				background-image: url("images/delete-white.png"); 
+			}
+
+	body
+		header#topSearch
+		section#notice
+			br
+			button(onclick="beforeStart()") 开始测试
+			span(style="color:red") *开始测试前，请清理缓存，并点此按钮。
+			br
+			br
+			button(onclick="endTest()") 完成测试
+			span(style="color:red") *测试结束时，点此按钮上传测试结果。
+			p(style="color:red") 链接后的simple链接会打开不加载测试用例的空白页面，用于在页面出现崩溃时，能填写测试结果。
+		section#content
+		footer
+		section#saveResults
+			div.close
+			form(action="/save" method="GET")
+				h3 UPLOAD RESULTS
+				div.form-div
+					label Tester：
+					input.form-item(type="text" name="tester")
+				div.form-div
+					label Device：
+					input.form-item(type="text" name="device") 
+				div.form-div
+					label System：
+					input.form-item(type="text" name="system")
+				div.form-div
+					label Plan：
+					input.form-item(type="text" name="plan" value="default")
+				input(type="hidden" name="results")
+				input(type="hidden" name="notes")
+				div
+					input.btn(type="submit" id="edit_submit" name="submit" value="submit")
 		script(src="js/jquery-1.8.3.min.js")
-	body(class="ui-nosvg")
-		div(data-role="page" data-theme="a" class='ui-page-theme-a ui-page')
-			div(class="header" data-role="header") 
-				a(href="javascript:;" onclick="Wgs.logout();" class="ui-btn ui-icon-power ui-btn-icon-notext ui-corner-all") back
-				hi(class="ui-title" role="heading") ManualTest
-			div(class="main" data-role="main")
-				a.index-a(href="/account" class="account-a") Account
-				a.index-a(href="/plan" class="plan-a") Plan
-				a.index-a(href="/unfinishedtests" class="test-a") Test
-		script(src="js/jquery-1.8.3.min.js")
-		script(src="js/jquery.mobile-1.3.2.min.js")
-		script(src="js/tester.js")
-		script(src="js/route.js")
+		script(src="js/index.js")
+
 		

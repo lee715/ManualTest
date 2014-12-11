@@ -10,7 +10,7 @@ html
 				td(align="center",colspan=6) TEST RESULTS
 			tr(class="header")
 				td#all All
-				td Plan
+				//- td Plan
 				td Tester
 				td Device
 				td System
@@ -19,7 +19,7 @@ html
 				tr(class="item")
 					td
 						div(class="checkbox" data-id= list[i].id)
-					td= plans[list[i].plan||0]
+					//- td= plans[list[i].plan||0]
 					td= list[i].tester
 					td= list[i].device
 					td= list[i].system

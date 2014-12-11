@@ -9,11 +9,11 @@ mongoose.connect(config.db_url, function(err){
 });
 
 require('./testResult');
-require('./plan');
-require('./user');
+// require('./plan');
+// require('./user');
 
 module.exports = {
-	TestResult: mongoose.model('TestResult'),
-	Plan: mongoose.model('Plan'),
-	User: mongoose.model('User')
+	TestResult: mongoose.model('TestResult')
+	// Plan: mongoose.model('Plan')
+	// User: mongoose.model('User')
 }

@@ -14,10 +14,11 @@
       .container {
         border: 1px solid #aaa;
         padding: 6px;
+        width: 80%;
       }
       .container div {
         position: relative;
-        width: 150px;
+        width: 30px;
         height: 30px;
         background: #99c;
         left: 0;
@@ -29,7 +30,7 @@
       }
       
       .clicked div {
-        left: 250px;
+        left: 150px;
       }
 
       .container .ease {
@@ -63,7 +64,7 @@
       #endmarker {
         position: absolute;
         width: 10px;
-        left: 257px;
+        left: 157px;
         top: 10px;
         height: 333px;
         background-color: red;
@@ -113,35 +114,27 @@
     <div class="container" onclick="this.className = 'container clicked'">
       
       <div class="default">
-        Default (should be the same as Ease)
       </div>
 
       <div class="ease">
-        Ease (the default ease function)
       </div>
 
       <div class="linear">
-        Linear
       </div>
 
       <div class="ease-in">
-        Ease In
       </div>
 
       <div class="ease-out">
-        Ease Out
       </div>
 
       <div class="ease-in-out">
-        Ease In Out
       </div>
 
       <div class="cubic">
-        Cubic bezier specified the same as Ease In Out
       </div>
 
       <div class="error">
-        Bogus definition, should become default of Ease
       </div>
       
     </div>

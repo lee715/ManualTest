@@ -1,0 +1,2 @@
+CONSOLE MESSAGE: line 12: Uncaught TypeError: Object [object global] has no method 'doDisplay'
+

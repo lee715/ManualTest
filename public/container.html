@@ -1,0 +1,289 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	<style type="text/css">
+	body{
+		font-family: "Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif";
+		padding: 0;
+		margin: 0;
+		background-color: #f2f1e7;
+	}
+	iframe{
+		width: 90%;
+		height: 100%;
+		border:none;
+	}
+	#desc {
+		width: 80%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 12px;
+		background: #fff;
+		display: none;
+	}
+	#desc div {
+		color: #666;
+		padding: 10px;
+	}
+	#pass-desc {
+		padding-right: 40px !important;
+		background: rgba(183, 217, 103, 0.6);
+	}
+	#fail-desc {
+		background: rgba(243, 130, 131, 0.6);
+	}
+	#step-desc {
+		background: rgba(254, 209, 116, 0.6);
+	}
+	.btn {
+		position: absolute;
+		width: 32px;
+		height: 32px;
+		background-repeat: no-repeat;
+		background-position: 6px 6px;
+		background-size: 20px 20px;
+		border-radius: 16px;
+		background-color: rgb(183, 217, 103); 
+	}
+	.toggleHandler {
+		top: 0;
+		right: 0;
+		z-index: 0;
+		background-image: url("images/info-white.png");
+		display: none;
+	}
+	.resultHandler {
+		top: 40px;
+		right: 0;
+		z-index: 0;
+		background-image: url("images/edit-white.png");
+	}
+	.delete {
+		background-color: rgb(243, 130, 131);
+		background-repeat: no-repeat;
+		background-position: 8px 8px;
+		background-size: 16px 16px;
+		z-index: 99;
+		background-image: url("images/delete-white.png"); 
+	}
+	#result {
+		width: 80px;
+		position: absolute;
+		top: 40px;
+		right: 0;
+		font-size: 12px;
+		background: #fff;
+		display: none;
+		background-color: transparent;
+	}
+	#result .pass {
+		background: rgba(183, 217, 103, 0.8);
+		border-radius: 6px;
+		border: 1px solid rgb(183, 217, 103);
+		padding: 4px;
+		color: white;
+		text-align: center;
+		font-size: 16px;
+		margin: 36px 2px 2px;
+	}
+	#result .fail {
+		background: rgba(243, 130, 131, 0.8);
+		border-radius: 6px;
+		border: 1px solid rgba(243, 130, 131, 1);;
+		padding: 4px;
+		color: white;
+		text-align: center;
+		font-size: 16px;
+		margin: 2px;
+	}
+	#result .note {
+		background: rgba(254, 209, 116, 0.8);
+		border-radius: 6px;
+		border: 1px solid rgba(254, 209, 116, 1);
+		padding: 4px;
+		color: white;
+		text-align: center;
+		font-size: 16px;
+		margin: 2px;
+	}
+	#result .block {
+		background: rgba(163, 230, 248, 0.8);
+		border-radius: 6px;
+		border: 1px solid rgba(163, 230, 248, 1);
+		padding: 4px;
+		color: white;
+		text-align: center;
+		font-size: 16px;
+		margin: 2px;
+	}
+	#popNoteBox{
+		width: 60%;
+		height: 60%;
+		position: absolute;
+		top: 16px;
+		left: 20%;
+		padding: 10px;
+		background: #fff;
+		box-shadow: 0 0 10px 4px rgba(0, 0, 0, .04);
+		display: none;
+	}
+	#popNoteBox textarea {
+		width: 100%;
+		height: 80%;
+		margin-bottom: 10px;
+		border: 1px solid #eee;
+		padding: 10px;
+	}
+	#popNoteBox .submitNote{
+		height: 16px;
+		padding: 7px 0;
+		text-align: center;
+		background: rgba(254, 209, 116, .8);
+		color: white;
+		border: 1px solid rgba(254, 209, 116, 1);
+		font-weight: bold;
+		border-radius: 6px;
+	}
+	#popNoteBox .close{
+		position: absolute;
+		top: -10px;
+		right: -10px;
+	}
+	</style>
+</head>
+<body>
+	<div class="toggleHandler btn"></div>
+	<div id="desc"></div>
+	<div class="resultHandler btn"></div>
+	<div id="result">
+		<div class="pass" data-action="pass">Pass</div>
+		<div class="fail" data-action="fail">Fail</div>
+		<div class="block" data-action="block">Block</div>
+		<div class="note" data-action="note">Note</div>
+	</div>
+	<div id="popNoteBox">
+		<textarea placeholder="write your notes here"></textarea>
+		<div class="submitNote">Submit Note</div>
+		<div class="btn delete close"></div>
+	</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+onload = function(){
+	var KEY = 'manualresults';
+	var NOTE = 'manualnotes';
+	
+	var query2Obj = function(){
+		var query = location.search.slice(1);
+		var res = {};
+		if(query.length){
+			var pairs = query.split(/[&|=]/g);
+			var key, val;
+			while(key = pairs.shift()){
+				val = pairs.shift();
+				res[key] = unescape(val);
+			}
+		}
+		return res;
+	}
+	var getCurRes = function(){
+		var resStr = localStorage.getItem(KEY) || '{}';
+		return JSON.parse(resStr);
+	}
+	var getCurNote = function(){
+		var resStr = localStorage.getItem(NOTE) || '{}';
+		return JSON.parse(resStr);
+	}
+	var setCurRes = function(value){
+		var curRes = getCurRes();
+		curRes[markname] = value;
+		localStorage.setItem(KEY, JSON.stringify(curRes));
+	}
+	var setCurNote = function(value){
+		var curRes = getCurNote();
+		curRes[markname] = value;
+		localStorage.setItem(NOTE, JSON.stringify(curRes));
+	}
+	var markPass = function(){
+		setCurRes(1);
+	}
+	var markFail = function(){
+		setCurRes(0);
+	}
+	var markBlock = function(){
+		setCurRes(2);
+	}
+	var popNote = function(){
+		$('#popNoteBox textarea').val('');
+		$('#popNoteBox').show();
+	}
+
+	var qObj = query2Obj();
+	var src = qObj.u;
+	var markname = src.replace(/\/{0,1}testCases\//, '');
+	var noIfr = qObj.noifr;
+	if(!noIfr){
+		var ifr = document.createElement('iframe');
+		ifr.onload = function(){
+			var cd = ifr.contentDocument;
+			var descDom = cd.getElementById('desc');
+			if(!descDom){
+				$('.toggleHandler').hide();
+			}else{
+				$('.toggleHandler').show();
+				document.getElementById('desc').innerHTML = descDom.innerHTML;
+			}
+			cd.getElementsByTagName('head')[0].innerHTML += '<meta name=\"viewport\" content=\"width=device-width initial-scale=1.0\">';
+		}
+		ifr.src = src;
+		document.body.appendChild(ifr);
+	}
+	$('.toggleHandler').click(function(){
+		$(this).toggleClass('delete');
+		if($(this).hasClass('delete')){
+			$('#desc').show();
+		}else{
+			$('#desc').hide();
+		}
+	})
+	$('.resultHandler').click(function(){
+		$(this).toggleClass('delete');
+		if($(this).hasClass('delete')){
+			$('#result').show();
+		}else{
+			$('#result').hide();
+		}
+	})
+	$('#result div').click(function(e){
+		var action = $(this).data('action');
+		switch(action){
+			case 'pass':
+				markPass();
+				break;
+			case 'fail':
+				markFail();
+				break;  
+			case 'block':
+				markBlock();
+				break;  
+			case 'note':
+				popNote();
+				break;
+		}
+		$('.resultHandler').click();
+	})
+	$('#popNoteBox .close').click(function(){
+		$('#popNoteBox').hide();
+	})
+	$('#popNoteBox .submitNote').click(function(){
+		var note = $('#popNoteBox textarea').val();
+		if(note.length){
+			setCurNote(note);
+		}
+		$('#popNoteBox').hide();
+	})
+}
+</script>
+</body>
+</html>

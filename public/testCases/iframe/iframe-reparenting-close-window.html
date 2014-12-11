@@ -19,6 +19,14 @@ function start()
 
 </script>
 <body>
+	<div id="desc" style="display:none">
+        <div id="pass-desc">
+            点击start test按钮，有新页面打开，关闭新页面，按钮下输出Child window loaded.Initializing Iframe则pass
+        </div>
+        <div id="fail-desc">
+            与pass描述不符
+        </div>
+    </div>
 <p>Bug: https://bugs.webkit.org/show_bug.cgi?id=70147</p>
 <p>This test recreates scenario when an iframe is reparented from one page to another using 'live iframe transfer'
   (with adoptNode() used on the iframe right before re-parenting into the other page's DOM tree).

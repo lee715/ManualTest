@@ -83,3 +83,47 @@ tr.tr-header{
 tr.tr-footer{
 	background: white;
 }
+
+label,select, input {
+	color: #666;
+}
+.form-item {
+	border:none;
+	border-bottom: 1px solid #ccc;
+}
+
+.btn{
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 4px;
+    width: 100%;
+    margin: 10px 0;
+    display: inline-block;
+    outline: none;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1.42857143;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+h3 {
+    text-align: center;
+    font-family: 'Open Sans', arial;
+    -webkit-font-smoothing: antialiased;
+    color: #555;
+    font-size: 18px;
+    margin: 0 0 20px 0;
+}
+.form-div {
+	padding: 6px 0;
+}

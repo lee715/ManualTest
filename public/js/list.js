@@ -1,13 +1,13 @@
 
 
 (function(){
-	var getCase = function(ind, cases){
-		var ca = cases[ind];
-		ca = ca.split('/')[1].split('.')[0].replace(/-[a-zA-Z]{1}/g, function(m){
-			return m.charAt(1).toUpperCase();
-		});
-		return ca;
-	}
+	// var getCase = function(ind, cases){
+	// 	var ca = cases[ind];
+	// 	ca = ca.split('/')[1].split('.')[0].replace(/-[a-zA-Z]{1}/g, function(m){
+	// 		return m.charAt(1).toUpperCase();
+	// 	});
+	// 	return ca;
+	// }
 	$('.item').click(function(){
 		$(this).find('.checkbox').toggleClass('checked');
 	});
@@ -49,11 +49,10 @@
 	}
 
 	var renderReport = function(obj){
-		var cases = obj.cases,
-			tests = obj.tests;
+		var tests = obj.tests;
 
 		// format data
-		var systems = [], dataBySys = {};
+		var systems = [], dataBySys = {}, cases = [], mergeObj = {};
 		$.each(tests, function(ind, test){
 			var sys = test.system;
 			if(systems.indexOf(sys) == -1){
@@ -62,7 +61,10 @@
 			}else{
 				dataBySys[sys.trim()].push(test);
 			}
+			mergeObj = $.extend(mergeObj, JSON.parse(test.results));
 		});
+		var i = 0;
+		for(cases[i++] in mergeObj);
 
 		// render systems
 		var tStr = '<table class="reportTable" cellpadding="0" cellspacing="0"><tr><td class="purple" id="manualTestResults" rowspan=3 align="center">Manaul Test Results</td>';
@@ -97,7 +99,7 @@
 				$.each(dataBySys[sys.trim()], function(index, item){
 					if(typeof item.results == 'string') item.results = JSON.parse(item.results);
 					if(typeof item.notes == 'string') item.notes = JSON.parse(item.notes);
-					var caseName = getCase(ind, cases);
+					var caseName = ca;
 					var map = 'FAIL PASS BLOCK SKIP'.split(' ');
 					var re = map[item.results[caseName]] || '/';
 					var note = item.notes[caseName];

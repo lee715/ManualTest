@@ -11,62 +11,14 @@ app.engine('jade', require('jade').__express);
 
 app.use(express.static(__dirname + '/public'));
 
-// app.use(session({
-// 	keys: ['userId', 'level'],
-// 	secureProxy: true
-// }));
-app.use(session({secret: 'keyboard cat'}));
-
 var Models = require('./models/index.js');
 
-var UserCtl = require('./roots/user.js');
-var PlanCtl = require('./roots/plan.js');
-var TestCtl = require('./roots/test.js');
-
 app.get('/', function(req, res){
-	res.redirect('/login');
+	res.redirect('/index');
 });
 
-app.get('/index', UserCtl.checkLogin, function(req, res){
-	var level = req.session.level;
-	if(level < 3){
-		res.redirect('/unfinishedtests');
-	}else{
-		res.render('index.jade');
-	}
-});
-
-/*** account ***/
-app.get('/login', UserCtl.login);
-app.get('/logout', UserCtl.logout);
-app.get('/loginAjax', UserCtl.loginAjax);
-app.get('/autoLogin', UserCtl.autoLogin);
-app.get('/account/create', UserCtl.create);
-app.get('/account/update', UserCtl.update);
-app.get('/account', UserCtl.checkLogin, UserCtl.checkLevel, UserCtl.account);
-/*** account end ***/
-
-/*** test ***/
-app.get('/unfinishedtests', UserCtl.checkLogin, TestCtl.unfinishedtests);
-app.get('/newtest', UserCtl.checkLogin, TestCtl.newtest);
-app.get('/test/create', TestCtl.create);
-app.get('/test/update', TestCtl.update);
-app.get('/test/submit', TestCtl.submit);
-app.get('/test/get', TestCtl.get);
-app.get('/test/delete', TestCtl.delete);
-app.get('/test', function(req, res){
-	res.render('test.jade');
-});
-/*** test end ***/
-
-/*** plan ***/
-app.get('/plan', PlanCtl.index);
-app.get('/plans', PlanCtl.plans);
-app.get('/plan/create', PlanCtl.create);
-/*** plan end ***/
-
-app.get('/report', function(req,res){
-	res.render('report.jade');
+app.get('/index', function(req, res){
+	res.render('index.jade');
 })
 
 app.get('/getFiles', function(req, res){
@@ -87,28 +39,53 @@ app.get('/getFiles', function(req, res){
 			res.json(r);
 		}
 	});
-})
+});
+
+app.get('/save', function(req, res){
+	var unm = req.param('tester'),
+		sys = req.param('system'),
+		dev = req.param('device'),
+		plan = req.param('plan'),
+		results = req.param('results'),
+		notes = req.param('notes'),
+		one = new Models.TestResult;
+	one.tester = unm;
+	one.system = sys;
+	one.device = dev;
+	one.plan = plan;
+	one.results = results;
+	one.notes = notes;
+	console.log(one);
+	one.save(function(err){
+		if(err){
+			res.json({status: 'fail', data: err.message});
+		}else{
+			res.json({status: 'success', data: one._id});
+		}
+	});
+});
 
 app.get('/list', function(req, res){
-	Models.TestResult.find({submited: true}, function(err, data){
+	Models.TestResult.find({}, function(err, data){
 		data.reverse();
 		if(err) return res.send('error: failed to read TestResult');
-		Models.Plan.find({}, function(err, plans){
-			if(err) return res.send('error: failed to read plans');
-			var p, pObj = {};
-			for(var i=0,l=plans.length;i<l;i++){
-				p = plans[i];
-				pObj[p.id] = p.content;
-			};
-			pObj[0] = 'no plan';
-			res.render('list.jade', {list: data, plans: pObj});
-		});
+		// Models.Plan.find({}, function(err, plans){
+		// 	if(err) return res.send('error: failed to read plans');
+		// 	var p, pObj = {};
+		// 	for(var i=0,l=plans.length;i<l;i++){
+		// 		p = plans[i];
+		// 		pObj[p.id] = p.content;
+		// 	};
+		// 	pObj[0] = 'no plan';
+		// 	res.render('list.jade', {list: data, plans: pObj});
+		// });
+		res.render('list.jade', {list: data});
 	});
 });
 
 app.get('/treport', function(req, res){
 	var ids = req.param('ids').join(' '), r = [];
-	Models.TestResult.find({submited: true}, function(err, data){
+	Models.TestResult.find({}, function(err, data){
 		var d;
 		while(d = data.pop()){
 			if(ids.indexOf(d.id) != -1) r.push(d);
@@ -158,7 +135,6 @@ app.get('/redirect-ping-to-http', function(req, res){
 	res.end();
 });
 
-/*** https test end ***/
 
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port);
